@@ -1,6 +1,7 @@
 export default {
   transparent: 'transparent',
   white: 'white',
-  primary: '#2F3E9E',
-  primaryLight: '#3E50B4',
+  primary: '#3E50B4',
+  primaryDark: '#2F3E9E',
+  secondary: '#A7CF4A',
 };

@@ -3,18 +3,10 @@ import { Text, StyleSheet } from 'react-native';
 import Colors from './Colors';
 import Touchable from './Touchable';
 
-const TYPES = {
-  main: {
-    ripple: Colors.primaryLight,
-    color: Colors.white,
-    background: Colors.primary,
-  },
-};
-
 const styles = StyleSheet.create({
   button: {
     borderRadius: 30,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.primaryDark,
     paddingTop: 17,
     paddingBottom: 16,
     paddingHorizontal: 22,

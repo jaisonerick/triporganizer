@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from 'triporganizer/components/Colors';
+import WithDetails from './WithDetails';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   strong: {
     fontWeight: 'bold',
   },
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
 export default class Flight extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <WithDetails>
         <Text style={styles.title}>FLN - SAO</Text>
         <View>
           <Text style={styles.item}><Text>Voo:</Text> <Text style={styles.strong}>1234</Text></Text>
@@ -33,7 +32,7 @@ export default class Flight extends Component {
           <Text style={styles.item}><Text>Chegada:</Text> <Text style={styles.strong}>1234</Text></Text>
           <Text style={styles.item}><Text style={styles.strong}>Detalhes</Text></Text>
         </View>
-      </View>
+      </WithDetails>
     );
   }
 }

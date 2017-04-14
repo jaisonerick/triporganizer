@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LoginApp from 'triporganizer/auth/containers/LoginApp';
 import MainApp from 'triporganizer/main/containers/MainApp';
 import TripApp from 'triporganizer/trip/containers/TripApp';
+import FlightApp from 'triporganizer/trip/containers/FlightApp';
 
 const mapStateToProps = (state, props) => ({
   isLoggedIn: state => state.auth.isLoggedIn
@@ -14,7 +15,7 @@ export default class App extends Component {
     if(this.props.isLoggedin) {
       return <MainApp />
     } else {
-      return <TripApp />
+      return <FlightApp />
     }
   }
 }

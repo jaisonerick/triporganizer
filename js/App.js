@@ -4,6 +4,7 @@ import LoginApp from 'triporganizer/auth/containers/LoginApp';
 import MainApp from 'triporganizer/main/containers/MainApp';
 import TripApp from 'triporganizer/trip/containers/TripApp';
 import FlightApp from 'triporganizer/trip/containers/FlightApp';
+import HotelApp from 'triporganizer/trip/containers/HotelApp';
 
 const mapStateToProps = (state, props) => ({
   isLoggedIn: state => state.auth.isLoggedIn
@@ -15,7 +16,7 @@ export default class App extends Component {
     if(this.props.isLoggedin) {
       return <MainApp />
     } else {
-      return <FlightApp />
+      return <HotelApp />
     }
   }
 }

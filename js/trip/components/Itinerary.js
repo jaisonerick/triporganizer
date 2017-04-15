@@ -5,11 +5,15 @@ import Day from './itinerary/Day';
 
 export default class Itinerary extends Component {
   render() {
+    const { trip, navigation } = this.props;
+
     return (
       <View style={{ flex: 1 }}>
-        <Day />
-        <Day />
-        <Day />
+        {
+          trip.trip_dates.map((date) => (
+            <Day date={date.date} key={date.date} appointments={date.appointments} navigation={navigation} />
+          ))
+        }
       </View>
     );
   }

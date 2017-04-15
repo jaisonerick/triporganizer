@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 export default class Toolbar extends Component {
   render() {
-    const { onMenuPress, menuIcon, title } = this.props;
+    const { onMenuPress, menuIcon, rightMenuIcon, onRightMenuPress, title } = this.props;
 
     if(!title && Children.count(this.props.children) == 0) {
       return null;
@@ -59,6 +59,15 @@ export default class Toolbar extends Component {
 
             {this.props.children}
           </View>
+        }
+
+        {
+          rightMenuIcon &&
+          <Touchable onPress={onRightMenuPress} rippleColor={Colors.brandDark} rippleBorderless>
+            <View style={[styles.navBarItem, styles.menuIcon]}>
+              <Icon name={rightMenuIcon} size={30} color={this.props.iconColor || Colors.white} />
+            </View>
+          </Touchable>
         }
       </View>
     );

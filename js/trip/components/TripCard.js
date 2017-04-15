@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
 
 export default class TripCard extends Component {
   render() {
-    const {image, title, subtitle, body} = this.props;
+    const {image, title, subtitle, body, onPress} = this.props;
 
     return (
-      <Card>
+      <Card onPress={onPress}>
         <Image source={image} style={styles.backgroundImage}>
           <LinearGradient colors={['rgba(0,0,0,.4)', 'rgba(0,0,0,.1)']} style={styles.cardContainer}>
             <View style={styles.header}>

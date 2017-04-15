@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { StackNavigator } from 'react-navigation';
+
 import LoginApp from 'triporganizer/auth/containers/LoginApp';
 import MainApp from 'triporganizer/main/containers/MainApp';
 import TripApp from 'triporganizer/trip/containers/TripApp';
@@ -8,14 +10,21 @@ import HotelApp from 'triporganizer/trip/containers/HotelApp';
 import DocumentViewApp from 'triporganizer/document/containers/DocumentViewApp';
 
 const mapStateToProps = (state, props) => ({
-  isLoggedIn: state => state.auth.isLoggedIn
+  isLoggedIn: state.auth.isLoggedIn
 });
 
 @connect(mapStateToProps)
 export default class App extends Component {
   render() {
-    if(this.props.isLoggedin) {
-      return <MainApp />
+    if(this.props.isLoggedIn) {
+      const Stack = StackNavigator({
+        Main: { screen: MainApp },
+        Trip: { screen: TripApp }
+      }, {
+        headerMode: 'none',
+      });
+
+      return <Stack />
     } else {
       return <LoginApp />
     }

@@ -17,12 +17,17 @@ const styles = StyleSheet.create({
 });
 
 export default class TextInput extends Component {
+  focus() {
+    this.input.focus();
+  }
+
   render() {
     const { style } = this.props;
     const props = _.omit(this.props, 'style');
 
     return (
       <ReactTextInput
+        ref={(input) => this.input = input}
         style={[styles.input, style]}
         placeholderTextColor="white"
         {...props}

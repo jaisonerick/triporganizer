@@ -27,22 +27,36 @@ const styles = StyleSheet.create({
 
 export default class Day extends Component {
   render() {
+    const { date, appointments, navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Segunda feira - 7 de agosto</Text>
+          <Text style={styles.headerText}>{ date }</Text>
         </View>
 
         <View style={styles.content}>
-          <MainItem past />
-          <MarkerItem past />
-          <MarkerItem past />
-          <MarkerItem />
-          <MarkerItem />
-          <MainItem />
-          <MainItem />
-          <MainItem />
-          <MainItem last />
+          {
+            appointments.map((appointment) => {
+              const mainItem = <MainItem
+                key={`appointment-${appointment.id}`}
+                past={!appointment.upcoming}
+                last={appointment.last}
+                medium={appointment.medium}
+                medium_image={appointment.medium_image}
+                time={appointment.time}
+                details={appointment.details}
+                navigation={navigation}
+                type={appointment.type} />
+
+              return [
+                mainItem,
+                ...appointment.milestones.map((milestone) => {
+                  return <MarkerItem key={`mileston-${milestone.id}`} last={milestone.last} description={milestone.description} past={!appointment.upcoming}  />;
+                })
+              ];
+            })
+          }
         </View>
       </View>
     );

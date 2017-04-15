@@ -23,14 +23,17 @@ const styles = StyleSheet.create({
 
 export default class Flight extends Component {
   render() {
+    const { details, navigation } = this.props;
+
     return (
       <WithDetails>
-        <Text style={styles.title}>FLN - SAO</Text>
+        <Text style={styles.title}>{`${details.from} - ${details.to}`}</Text>
         <View>
-          <Text style={styles.item}><Text>Voo:</Text> <Text style={styles.strong}>1234</Text></Text>
-          <Text style={styles.item}><Text>Portão:</Text> <Text style={styles.strong}>1234</Text></Text>
-          <Text style={styles.item}><Text>Chegada:</Text> <Text style={styles.strong}>1234</Text></Text>
-          <Text style={styles.item}><Text style={styles.strong}>Detalhes</Text></Text>
+          <Text style={styles.item}><Text>Voo:</Text> <Text style={styles.strong}>{ details.flight_number }</Text></Text>
+          <Text style={styles.item}><Text>Portão:</Text> <Text style={styles.strong}>{ details.gate }</Text></Text>
+          <Text style={styles.item}><Text>Chegada:</Text> <Text style={styles.strong}>{ details.arrival }</Text></Text>
+          <Text style={styles.item}><Text>Poltrona:</Text> <Text style={styles.strong}>{ details.seat }</Text></Text>
+          <Text style={styles.item}><Text style={styles.strong}>{ details.details }</Text></Text>
         </View>
       </WithDetails>
     );

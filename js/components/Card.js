@@ -22,14 +22,16 @@ const styles = StyleSheet.create({
 
 export default class Card extends Component {
   render() {
-    const { children } = this.props;
+    const { children, onPress } = this.props;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.card}>
-          {children}
+      <Touchable onPress={onPress}>
+        <View style={styles.container}>
+          <View style={styles.card}>
+            {children}
+          </View>
         </View>
-      </View>
+      </Touchable>
     );
   }
 }

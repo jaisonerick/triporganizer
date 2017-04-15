@@ -22,12 +22,20 @@ const styles = StyleSheet.create({
 });
 
 export default class TripApp extends Component {
+  goBack() {
+    const { goBack } = this.props.navigation;
+
+    goBack();
+  }
+
   render() {
+    const { state: { params: { trip } } } = this.props.navigation;
+
     return (
       <View style={{flex: 1}}>
-        <TopBar menuIcon="md-arrow-back">
-          <Text style={styles.title}>{"Missão Tripmobility 2017".toUpperCase()}</Text>
-          <Text style={styles.subtitle}>{"17 a 24 de junho".toUpperCase()}</Text>
+        <TopBar menuIcon="md-arrow-back" onMenuPress={() => this.goBack()}>
+          <Text style={styles.title}>{trip.name.toUpperCase()}</Text>
+          <Text style={styles.subtitle}>{trip.dates.toUpperCase()}</Text>
         </TopBar>
 
         <ScrollableTabView
@@ -37,8 +45,8 @@ export default class TripApp extends Component {
           tabBarInactiveTextColor='white'
           tabBarUnderlineStyle={{ backgroundColor: Colors.secondary }}
         >
-          <ItineraryApp tabLabel="ROTEIRO" />
-          <DocumentsApp tabLabel="DOCUMENTOS" />
+          <ItineraryApp tabLabel="ROTEIRO" trip={trip} navigation={this.props.navigation} />
+          <DocumentsApp tabLabel="DOCUMENTOS" trip={trip} navigation={this.props.navigation} />
         </ScrollableTabView>
       </View>
     );

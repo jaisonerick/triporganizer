@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
 export default class TopBar extends Component {
   render() {
-    const { onMenuPress, menuIcon, title } = this.props;
+    const { onRightMenuPress, rightMenuIcon, onMenuPress, menuIcon, title } = this.props;
 
     if(title || Children.count(this.props.children) > 0) {
       return (
@@ -24,7 +24,9 @@ export default class TopBar extends Component {
           />
 
           <View style={styles.navBar}>
-            <Toolbar onMenuPress={onMenuPress} menuIcon={menuIcon} title={title}>
+            <Toolbar
+              onMenuPress={onMenuPress} menuIcon={menuIcon} title={title}
+              rightMenuIcon={rightMenuIcon} onRightMenuPress={onRightMenuPress}>
               {this.props.children}
             </Toolbar>
           </View>

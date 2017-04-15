@@ -24,7 +24,7 @@ export default class App extends Component {
         headerMode: 'none',
       });
 
-      return <Stack />
+      return <Stack style={{ flex: 1 }} />
     } else {
       return <LoginApp />
     }

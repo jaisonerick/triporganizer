@@ -25,7 +25,7 @@ export default class Card extends Component {
     const { children, onPress } = this.props;
 
     return (
-      <Touchable onPress={onPress}>
+      <Touchable style={styles.container} onPress={onPress}>
         <View style={styles.container}>
           <View style={styles.card}>
             {children}

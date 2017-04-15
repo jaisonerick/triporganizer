@@ -7,6 +7,7 @@ import FlightDetails from '../components/FlightDetails';
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
   container: {
     alignItems: 'stretch',
@@ -14,16 +15,25 @@ const styles = StyleSheet.create({
 });
 
 export default class FlightApp extends Component {
+  goBack() {
+    const { goBack } = this.props.navigation;
+
+    goBack();
+  }
+
   render() {
+    const { navigation } = this.props;
+    const { state: { params: { item } } } = this.props.navigation;
+
     return (
       <View style={{flex: 1}}>
-        <TopBar menuIcon="md-arrow-back" title="FLN - CHAPECÓ" />
+        <TopBar menuIcon="md-arrow-back" title={`${item.details.from} - ${item.details.to}`} onMenuPress={() => this.goBack()} />
 
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.container}
         >
-          <FlightDetails />
+          <FlightDetails item={item} />
         </ScrollView>
       </View>
     );

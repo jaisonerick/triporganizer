@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from 'triporganizer/components/Colors';
+import OptionalText from 'triporganizer/components/OptionalText';
 import WithDetails from './WithDetails';
 
 const styles = StyleSheet.create({
@@ -23,17 +24,35 @@ const styles = StyleSheet.create({
 
 export default class Flight extends Component {
   render() {
-    const { details, navigation } = this.props;
+    const { details, navigation, appointment } = this.props;
 
     return (
-      <WithDetails>
+      <WithDetails navigation={navigation} screen='FlightDetails' item={appointment}>
         <Text style={styles.title}>{`${details.from} - ${details.to}`}</Text>
         <View>
-          <Text style={styles.item}><Text>Voo:</Text> <Text style={styles.strong}>{ details.flight_number }</Text></Text>
-          <Text style={styles.item}><Text>Portão:</Text> <Text style={styles.strong}>{ details.gate }</Text></Text>
-          <Text style={styles.item}><Text>Chegada:</Text> <Text style={styles.strong}>{ details.arrival }</Text></Text>
-          <Text style={styles.item}><Text>Poltrona:</Text> <Text style={styles.strong}>{ details.seat }</Text></Text>
-          <Text style={styles.item}><Text style={styles.strong}>{ details.details }</Text></Text>
+          {
+            !OptionalText.isEmpty(details.flight_number) &&
+            <Text style={styles.item}><Text>Voo:</Text> <Text style={styles.strong}>{ details.flight_number }</Text></Text>
+          }
+          {
+            !OptionalText.isEmpty(details.gate) &&
+              <Text style={styles.item}><Text>Portão:</Text> <Text style={styles.strong}>{ details.gate }</Text></Text>
+          }
+
+          {
+            !OptionalText.isEmpty(details.arrival) &&
+            <Text style={styles.item}><Text>Chegada:</Text> <Text style={styles.strong}>{ details.arrival }</Text></Text>
+          }
+
+          {
+            !OptionalText.isEmpty(details.seat) &&
+            <Text style={styles.item}><Text>Poltrona:</Text> <Text style={styles.strong}>{ details.seat }</Text></Text>
+          }
+
+          {
+            !OptionalText.isEmpty(details.details) &&
+            <Text style={styles.item}><Text style={styles.strong}>{ details.details }</Text></Text>
+          }
         </View>
       </WithDetails>
     );

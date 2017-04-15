@@ -13,7 +13,7 @@ const TYPES = {
 
 export default class ItemDetails extends Component {
   render() {
-    const { details, type, navigation } = this.props;
+    const { appointment, details, type, navigation } = this.props;
     const Type = TYPES[type];
 
     if(!Type) {
@@ -21,7 +21,7 @@ export default class ItemDetails extends Component {
     }
 
     return (
-      <Type details={details} navigation={navigation} />
+      <Type appointment={appointment} details={details} navigation={navigation} />
     );
   }
 }

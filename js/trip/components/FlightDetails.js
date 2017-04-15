@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Colors from 'triporganizer/components/Colors';
+import OptionalText from 'triporganizer/components/OptionalText';
 import Day from './itinerary/Day';
 
 const styles = StyleSheet.create({
@@ -60,25 +61,28 @@ const styles = StyleSheet.create({
 
 export default class FlightDetails extends Component {
   render() {
+    const { item } = this.props;
+    const { details } = item;
+
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.blankBox}>
-          <Text style={styles.mainTitle}>Avianca Brazil (O6) 6318</Text>
-          <Text style={styles.company}>Operado por Avianca Brazil</Text>
+          <Text style={styles.mainTitle}>{`${details.company_name} - ${details.flight_number}`}</Text>
+          <Text style={styles.company}>{`Operado por ${details.company_name}`}</Text>
 
-          <Text style={styles.destinations}>FLN - XAP</Text>
+          <Text style={styles.destinations}>{`${details.from} - ${details.to}`}</Text>
         </View>
 
         <View style={styles.detailsBox}>
           <View style={styles.detailsRow}>
             <View style={[styles.detailsItem, { flex: 2 }]}>
               <Text style={styles.detailTitle}>Partida</Text>
-              <Text style={styles.detailValue}>21 de Set 23:40</Text>
+              <Text style={styles.detailValue}>{details.departure_date}</Text>
             </View>
 
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Terminal</Text>
-              <Text style={styles.detailValue}>-</Text>
+              <OptionalText style={styles.detailValue} value={details.gate} />
             </View>
 
             <View style={styles.detailsItem}>
@@ -90,7 +94,7 @@ export default class FlightDetails extends Component {
           <View style={styles.detailsRow}>
             <View style={[styles.detailsItem, {flex: 2}]}>
               <Text style={styles.detailTitle}>Chegada</Text>
-              <Text style={styles.detailValue}>21 de Set 23:40</Text>
+              <Text style={styles.detailValue}>{details.arrival_date}</Text>
             </View>
 
             <View style={styles.detailsItem}>
@@ -103,19 +107,15 @@ export default class FlightDetails extends Component {
               <Text style={styles.detailValue}>-</Text>
             </View>
           </View>
+        </View>
 
-          <View style={[styles.detailsRow, {marginBottom: 0}]}>
-            <View style={[styles.detailsItem, {flex: 2}]}>
-              <Text style={styles.detailTitle}>Duração do Voo</Text>
-              <Text style={styles.detailValue}>1h e 5 min</Text>
-            </View>
+        {
+          !OptionalText.isEmpty(details.confirmation_number) &&
+          <View style={styles.confirmation}>
+            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Número de Confirmação</Text>
+            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.confirmation_number}</Text>
           </View>
-        </View>
-
-        <View style={styles.confirmation}>
-          <Text style={[styles.detailTitle, styles.confirmationTitle]}>Número de Confirmação</Text>
-          <Text style={[styles.detailValue, styles.confirmationValue]}>39GJU</Text>
-        </View>
+        }
       </View>
     );
   }

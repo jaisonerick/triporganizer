@@ -98,7 +98,7 @@ export default class MainItem extends Component {
         </View>
 
         <View style={getBorderStyle(styles.itemContent, this.props)}>
-          <ItemDetails type={this.props.type} details={this.props.details} navigation={this.props.navigation} />
+          <ItemDetails type={this.props.type} details={this.props.details} navigation={this.props.navigation} appointment={this.props.appointment} />
         </View>
       </View>
     );

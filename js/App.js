@@ -19,7 +19,8 @@ export default class App extends Component {
     if(this.props.isLoggedIn) {
       const Stack = StackNavigator({
         Main: { screen: MainApp },
-        Trip: { screen: TripApp }
+        Trip: { screen: TripApp },
+        FlightDetails: { screen: FlightApp },
       }, {
         headerMode: 'none',
       });

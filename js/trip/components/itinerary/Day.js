@@ -40,6 +40,7 @@ export default class Day extends Component {
             appointments.map((appointment) => {
               const mainItem = <MainItem
                 key={`appointment-${appointment.id}`}
+                appointment={appointment}
                 past={!appointment.upcoming}
                 last={appointment.last}
                 medium={appointment.medium}

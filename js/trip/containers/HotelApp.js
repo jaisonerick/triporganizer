@@ -7,6 +7,7 @@ import HotelDetails from '../components/HotelDetails';
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
   container: {
     alignItems: 'stretch',
@@ -14,16 +15,25 @@ const styles = StyleSheet.create({
 });
 
 export default class HotelApp extends Component {
+  goBack() {
+    const { goBack } = this.props.navigation;
+
+    goBack();
+  }
+
   render() {
+    const { navigation } = this.props;
+    const { state: { params: { item } } } = this.props.navigation;
+
     return (
       <View style={{flex: 1}}>
-        <TopBar menuIcon="md-arrow-back" title="HOTEL MANTA" />
+        <TopBar menuIcon="md-arrow-back" title={item.details.name} onMenuPress={() => this.goBack()} />
 
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.container}
         >
-          <HotelDetails />
+          <HotelDetails item={item} />
         </ScrollView>
       </View>
     );

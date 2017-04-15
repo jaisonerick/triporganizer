@@ -50,7 +50,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   confirmation: {
+    flex: 1,
     padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EBEBEB',
   },
   confirmationTitle: {
   },
@@ -82,12 +85,12 @@ export default class FlightDetails extends Component {
 
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Terminal</Text>
-              <OptionalText style={styles.detailValue} value={details.gate} />
+              <OptionalText style={styles.detailValue} value={details.departure_platform} />
             </View>
 
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Portão</Text>
-              <Text style={styles.detailValue}>-</Text>
+              <OptionalText style={styles.detailValue} value={details.departure_gate} />
             </View>
           </View>
 
@@ -99,15 +102,22 @@ export default class FlightDetails extends Component {
 
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Terminal</Text>
-              <Text style={styles.detailValue}>-</Text>
+              <OptionalText style={styles.detailValue} value={details.arrival_platform} />
             </View>
 
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Portão</Text>
-              <Text style={styles.detailValue}>-</Text>
+              <OptionalText style={styles.detailValue} value={details.arrival_gate} />
             </View>
           </View>
         </View>
+        {
+          !OptionalText.isEmpty(details.seat) &&
+          <View style={styles.confirmation}>
+            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Poltrona</Text>
+            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.seat}</Text>
+          </View>
+        }
 
         {
           !OptionalText.isEmpty(details.confirmation_number) &&

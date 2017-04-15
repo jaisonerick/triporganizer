@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from 'triporganizer/components/Colors';
+import OptionalText from 'triporganizer/components/OptionalText';
 import Day from './itinerary/Day';
 
 const styles = StyleSheet.create({
@@ -93,53 +94,64 @@ const styles = StyleSheet.create({
 
 export default class HotelDetails extends Component {
   render() {
+    const { item } = this.props;
+    const { details } = item;
+
     return (
       <View style={{ flex: 1 }}>
         <View style={{flex: 1, height: 200}}>
           <MapView
             style={styles.map}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: details.latitude,
+              longitude: details.longitude,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
-          />
+          >
+            <MapView.Marker
+              coordinate={{ latitude: details.latitude, longitude: details.longitude }}
+              title={details.name}
+            />
+          </MapView>
         </View>
 
         <View style={styles.detailsBox}>
           <View style={styles.detailsRow}>
             <View style={[styles.detailsItem]}>
               <Text style={styles.detailTitle}>Check in</Text>
-              <Text style={styles.detailValue}>21 de Setembro</Text>
+              <Text style={styles.detailValue}>{details.checkin_at}</Text>
             </View>
 
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Check out</Text>
-              <Text style={styles.detailValue}>23 de Setembro</Text>
+              <Text style={styles.detailValue}>{details.checkout_at}</Text>
             </View>
           </View>
 
           <View style={styles.detailsRow}>
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Duração da Estadia</Text>
-              <Text style={styles.detailValue}>2 noites</Text>
+              <Text style={styles.detailValue}>{details.stay_time}</Text>
             </View>
           </View>
 
-          <View style={[styles.detailsRow, {marginBottom: 0}]}>
-            <View style={styles.detailsItem}>
-              <Text style={styles.detailTitle}>Código de Confirmação</Text>
-              <Text style={styles.detailValue}>DQWTBC</Text>
+          {
+            !OptionalText.isEmpty(details.confirmation_code) &&
+            <View style={[styles.detailsRow, {marginBottom: 0}]}>
+              <View style={styles.detailsItem}>
+                <Text style={styles.detailTitle}>Código de Confirmação</Text>
+                <Text style={styles.detailValue}>{details.confirmation_code}</Text>
+              </View>
             </View>
-          </View>
+          }
         </View>
 
         <View style={styles.info}>
           <Icon name="ios-navigate" color="#686868" size={30} style={styles.infoIcon} />
           <View style={styles.infoBody}>
             <Text style={styles.infoTitle}>Endereço</Text>
-            <Text style={styles.infoValue}>R. Admar Gonzaga, 600 - Itacorubi, Florianópolis - SC, 88093-039, Brasil</Text>
+            <Text style={styles.infoValue}>{details.address}</Text>
           </View>
         </View>
 
@@ -147,7 +159,7 @@ export default class HotelDetails extends Component {
           <Icon name="md-call" color="#686868" size={30} style={styles.infoIcon} />
           <View style={styles.infoBody}>
             <Text style={styles.infoTitle}>Telefone</Text>
-            <Text style={styles.infoValue}>+55 48 3231-1700</Text>
+            <Text style={styles.infoValue}>{details.phone}</Text>
           </View>
         </View>
       </View>

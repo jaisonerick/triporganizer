@@ -34,19 +34,10 @@ export default class Flight extends Component {
             !OptionalText.isEmpty(details.flight_number) &&
             <Text style={styles.item}><Text>Voo:</Text> <Text style={styles.strong}>{ details.flight_number }</Text></Text>
           }
-          {
-            !OptionalText.isEmpty(details.gate) &&
-              <Text style={styles.item}><Text>Portão:</Text> <Text style={styles.strong}>{ details.gate }</Text></Text>
-          }
 
           {
             !OptionalText.isEmpty(details.arrival) &&
             <Text style={styles.item}><Text>Chegada:</Text> <Text style={styles.strong}>{ details.arrival }</Text></Text>
-          }
-
-          {
-            !OptionalText.isEmpty(details.seat) &&
-            <Text style={styles.item}><Text>Poltrona:</Text> <Text style={styles.strong}>{ details.seat }</Text></Text>
           }
 
           {

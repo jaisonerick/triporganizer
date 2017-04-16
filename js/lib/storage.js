@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob'
 
 let memoryToken = undefined;
 
@@ -33,5 +34,24 @@ export const storeTrips = async function(trips) {
 
 export const getTrips = function() {
   return AsyncStorage.getItem(TRIPS).then((str) => JSON.parse(str));
+}
+
+const DOCUMENTS = '@TripOrganizer:documents';
+
+export const storeDocuments = async function(documents) {
+  let savedDocuments = await Promise.all(
+    documents.map((document) => (
+      RNFetchBlob
+        .config({ fileCache: true })
+        .fetch('GET', document.url)
+        .then((res) => ({ ...document, url: res.path() }))
+    ))
+  );
+
+  return await AsyncStorage.setItem(DOCUMENTS, JSON.stringify(savedDocuments));
+};
+
+export const getDocuments = function() {
+  return AsyncStorage.getItem(DOCUMENTS).then((str) => JSON.parse(str));
 }
 

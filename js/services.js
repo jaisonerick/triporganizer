@@ -11,3 +11,7 @@ export const UserApi = {
 export const TripsApi = {
   list: GET('/api/trips'),
 };
+
+export const DocumentsApi = {
+  list: GET('/api/documents'),
+};

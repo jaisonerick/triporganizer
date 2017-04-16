@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { RefreshControl, ScrollView, View, StyleSheet } from 'react-native';
 import Colors from 'triporganizer/components/Colors';
 import Documents from '../components/Documents';
+import { loadDocuments } from '../document';
 
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-    backgroundColor: Colors.canvas,
-  },
-  container: {
-    alignItems: 'stretch',
-  },
+const mapStateToProps = (state, props) => ({
+  documents: state.document.documents,
 });
 
+const mapDispatchToProps = ({
+  loadDocuments,
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class DocumentsApp extends Component {
+  componentWillMount() {
+    this.props.loadDocuments();
+  }
+
   onRefresh() {
+    this.props.loadDocuments();
   }
 
   renderRefreshControl() {
@@ -29,9 +35,19 @@ export default class DocumentsApp extends Component {
           contentContainerStyle={styles.container}
           refreshControl={this.renderRefreshControl()}
         >
-          <Documents />
+          <Documents documents={this.props.documents} />
         </ScrollView>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    backgroundColor: Colors.canvas,
+  },
+  container: {
+    alignItems: 'stretch',
+  },
+});

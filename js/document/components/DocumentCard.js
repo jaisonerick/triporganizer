@@ -4,10 +4,7 @@ import Card from 'triporganizer/components/Card';
 import Colors from 'triporganizer/components/Colors';
 
 const TYPES = {
-  passport: {
-    image: require('../images/passport.png'),
-    name: 'Passaporte',
-  },
+  passport: require('../images/passport.png'),
 }
 
 const styles = StyleSheet.create({
@@ -34,17 +31,24 @@ const styles = StyleSheet.create({
 
 export default class DocumentCard extends Component {
   render() {
-    const type = TYPES[this.props.type];
+    const { document } = this.props;
+    const type = TYPES[document.type];
+
+    console.log(type, document.type, document);;
+
+    if(!type) {
+      return null;
+    }
 
     return (
       <Card style={styles.card}>
         <View style={styles.cardMain}>
-          <Image source={type.image} />
+          <Image source={type} />
         </View>
 
         <View style={styles.cardBody}>
           <Text style={styles.bodyText}>
-            {type.name.toUpperCase()}
+            {document.title.toUpperCase()}
           </Text>
         </View>
       </Card>

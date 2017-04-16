@@ -22,6 +22,7 @@ export default class App extends Component {
         Trip: { screen: TripApp },
         FlightDetails: { screen: FlightApp },
         HotelDetails: { screen: HotelApp },
+        DocumentView: { screen: DocumentViewApp },
       }, {
         headerMode: 'none',
       });

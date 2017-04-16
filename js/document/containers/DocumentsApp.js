@@ -4,9 +4,10 @@ import { RefreshControl, ScrollView, View, StyleSheet } from 'react-native';
 import Colors from 'triporganizer/components/Colors';
 import Documents from '../components/Documents';
 import { loadDocuments } from '../document';
+import { getDocuments } from '../selectors';
 
 const mapStateToProps = (state, props) => ({
-  documents: state.document.documents,
+  documents: getDocuments(state, props),
 });
 
 const mapDispatchToProps = ({
@@ -35,7 +36,7 @@ export default class DocumentsApp extends Component {
           contentContainerStyle={styles.container}
           refreshControl={this.renderRefreshControl()}
         >
-          <Documents documents={this.props.documents} />
+          <Documents documents={this.props.documents} navigation={this.props.navigation} />
         </ScrollView>
       </View>
     );

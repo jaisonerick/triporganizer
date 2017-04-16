@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import { Image, AsyncStorage } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob'
 
 let memoryToken = undefined;
@@ -44,7 +44,17 @@ export const storeDocuments = async function(documents) {
       RNFetchBlob
         .config({ fileCache: true })
         .fetch('GET', document.url)
-        .then((res) => ({ ...document, url: res.path() }))
+        .then((res) => ({ ...document, local_url: res.path() }))
+        .then((document) => {
+          if(document.display_type === "image") {
+            return new Promise((resolve, reject) => {
+              Image.getSize(document.url, (width, height) => {
+                resolve({ ...document, width, height });
+              });
+            });
+          }
+          return document;
+        })
     ))
   );
 

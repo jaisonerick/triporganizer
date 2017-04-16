@@ -9,19 +9,32 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  emptyView: {
+    flex: 1,
+  },
 });
 
 export default class Documents extends Component {
+  getDocumentPairs() {
+    return _.chunk(this.props.documents, 2).map((pair) => (
+      pair.length < 2 ? [...pair, { empty: true, key: '-' }] : pair
+    ));
+  }
+
   render() {
-    const { documents } = this.props;
+    const { navigation } = this.props;
 
     return (
       <View style={{ flex: 1 }}>
         {
-          _.chunk(documents, 2).map((pair) => (
+          this.getDocumentPairs().map((pair) => (
             <View style={styles.cards} key={pair.map((document) => document.key).join('-')}>
               {
-                pair.map((document) => <DocumentCard key={document.key} document={document} />)
+                pair.map((document) => (
+                  document.empty ?
+                    <View key={document.key} style={styles.emptyView} /> :
+                    <DocumentCard key={document.key} document={document} navigation={navigation} />
+                ))
               }
             </View>
           ))

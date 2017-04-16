@@ -1,44 +1,45 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Image, Text, View, StyleSheet } from 'react-native';
 import PDFView from 'react-native-pdf-view';
+import PhotoView from 'react-native-photo-view';
 import RNFetchBlob from 'react-native-fetch-blob'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  image: {
+    flex: 1,
+  },
 });
 
 export default class DocumentView extends Component {
-  constructor(props) {
-    super();
-    this.state = {
-      loading: true,
-    };
-  }
-
-  componentDidMount() {
-    RNFetchBlob
-      .config({ fileCache: true })
-      .fetch('GET', 'https://s3.amazonaws.com/triporganizer-staging/uploads/registration/insurance/11/1490629945_Comprovante_DebVerso.pdf')
-      .then((res) => this.setState({file: res.path(), loading: false}));
-  }
-
   renderPDF() {
     return (
       <PDFView path={this.state.file} style={{flex: 1}} />
     )
   }
-  renderLoading() {
-    return (
-      <Text>Carregando..</Text>
-    );
-  }
+
   render() {
-    const { loading } = this.state;
+    const { document } = this.props;
+    console.log(document);
     return (
       <View style={styles.container}>
-        { loading ? this.renderLoading() : this.renderPDF() }
+        {
+          document.display_type == 'image' &&
+          <PhotoView
+            source={{ uri: `file:///${document.local_url}`, width: document.width, height: document.height }}
+            minimumZoomScale={0.1}
+            maximumZoomScale={5}
+            androidScaleType="center"
+            onLoad={() => console.log("Image loaded!")}
+            style={styles.image} />
+        }
+
+        {
+          document.display_type == 'document' &&
+          <PDFView path={document.local_url} style={{flex: 1}} />
+        }
       </View>
     );
   }

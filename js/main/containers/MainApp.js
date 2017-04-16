@@ -28,7 +28,7 @@ export default class MainApp extends Component {
           tabBarUnderlineStyle={{ backgroundColor: Colors.secondary }}
         >
           <TripsApp tabLabel="MINHAS VIAGENS" navigation={this.props.navigation} />
-          <DocumentsApp tabLabel="MEUS DOCUMENTOS" />
+          <DocumentsApp tabLabel="MEUS DOCUMENTOS" navigation={this.props.navigation} />
         </ScrollableTabView>
       </View>
     );

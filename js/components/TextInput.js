@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 const styles = StyleSheet.create({
   input: {
+    flex: 1,
     borderRadius: 25,
     backgroundColor: 'rgba(255, 255, 255, .43)',
     color: 'white',

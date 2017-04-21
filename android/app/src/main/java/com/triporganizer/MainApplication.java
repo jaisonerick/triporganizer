@@ -2,6 +2,7 @@ package com.triporganizer;
 
 import android.app.Application;
 
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFetchBlobPackage(),
             new PDFView(),
             new LinearGradientPackage(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+            new MapsPackage()
       );
     }
   };

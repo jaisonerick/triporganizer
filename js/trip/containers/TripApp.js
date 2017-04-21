@@ -33,10 +33,7 @@ export default class TripApp extends Component {
 
     return (
       <View style={{flex: 1}}>
-        <TopBar menuIcon="md-arrow-back" onMenuPress={() => this.goBack()}>
-          <Text style={styles.title}>{trip.name.toUpperCase()}</Text>
-          <Text style={styles.subtitle}>{trip.dates.toUpperCase()}</Text>
-        </TopBar>
+        <TopBar title={trip.name.toUpperCase()} subtitle={trip.dates.toUpperCase()} menuIcon="md-arrow-back" onMenuPress={() => this.goBack()} />
 
         <ScrollableTabView
           prerenderingSiblingsNumber={Infinity}

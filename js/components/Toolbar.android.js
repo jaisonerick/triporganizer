@@ -1,9 +1,8 @@
 import React, { Children } from 'react';
 import { StyleSheet, View } from 'react-native';
-import pure from 'recompose/pure';
 import { ToolbarAndroid } from 'react-native-vector-icons/Ionicons';
 
-import logoCompanion from './img/logo_companion.png';
+import logo from './images/logo.png';
 import Colors from './Colors';
 
 const styles = StyleSheet.create({
@@ -17,17 +16,32 @@ const styles = StyleSheet.create({
 });
 
 const Toolbar = (props) => {
-  const { onMenuPress, menuIcon, title } = props;
+  const { onMenuPress, menuIcon, title, subtitle, onRightMenuPress, rightMenuIcon, rightMenuTitle } = props;
+
+  let actions = null;
+  if(rightMenuIcon) {
+    actions = [{
+      title: rightMenuTitle,
+      iconName: rightMenuIcon,
+      iconColor: props.iconColor || Colors.white,
+      show: 'always',
+      showWithText: false,
+      onActionSelected: () => onRightMenuPress()
+    }];
+  }
 
   return (
     <ToolbarAndroid
       navIconName={menuIcon}
       iconColor={props.iconColor || Colors.white}
       style={[styles.navBar, props.style]}
-      logo={title === undefined && Children.count(props.children) === 0 ? logoCompanion : null}
+      logo={title === undefined && Children.count(props.children) === 0 ? logo : null}
       title={title}
+      subtitle={subtitle}
       titleColor={Colors.white}
+      subtitleColor={Colors.white}
       onIconClicked={onMenuPress}
+      actions={actions}
     >
       {props.children}
     </ToolbarAndroid>
@@ -36,11 +50,11 @@ const Toolbar = (props) => {
 
 Toolbar.propTypes = {
   style: View.propTypes.style,
-  onMenuPress: React.PropTypes.func.isRequired,
-  menuIcon: React.PropTypes.string.isRequired,
+  onMenuPress: React.PropTypes.func,
+  menuIcon: React.PropTypes.string,
   iconColor: React.PropTypes.string,
   title: React.PropTypes.string,
   children: React.PropTypes.node,
 };
 
-export default pure(Toolbar);
+export default Toolbar;

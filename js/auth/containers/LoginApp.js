@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   contents: {
     paddingTop: 40,
     paddingHorizontal: 16,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
   },
   message: {

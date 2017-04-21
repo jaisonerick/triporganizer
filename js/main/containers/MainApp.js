@@ -18,7 +18,7 @@ export default class MainApp extends Component {
 
     return (
       <View style={{flex: 1}}>
-        <TopBar title="Trip Organizer" rightMenuIcon="md-log-out" onRightMenuPress={logout} />
+        <TopBar title="Trip Organizer" rightMenuIcon="md-log-out" onRightMenuPress={logout} rightMenuTitle="Sair" />
 
         <ScrollableTabView
           prerenderingSiblingsNumber={Infinity}

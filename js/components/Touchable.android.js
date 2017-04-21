@@ -23,7 +23,7 @@ const Touchable = (props) => {
 
 Touchable.propTypes = {
   ...TouchableNativeFeedback.propTypes,
-  rippleColor: React.PropTypes.string.isRequired,
+  rippleColor: React.PropTypes.string,
   rippleBorderless: React.PropTypes.bool,
 };
 

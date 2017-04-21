@@ -6,7 +6,7 @@ import TripCard from '../components/TripCard';
 import { loadTrips } from '../trip';
 
 const mapStateToProps = (state, props) => ({
-  trips: state.trip.trips,
+  trips: state.trips,
 })
 
 const mapDispatchToProps = ({

@@ -7,7 +7,9 @@ import MainApp from 'triporganizer/main/containers/MainApp';
 import TripApp from 'triporganizer/trip/containers/TripApp';
 import FlightApp from 'triporganizer/trip/containers/FlightApp';
 import HotelApp from 'triporganizer/trip/containers/HotelApp';
-import DocumentViewApp from 'triporganizer/document/containers/DocumentViewApp';
+import DocumentViewApp from 'triporganizer/trip/containers/DocumentViewApp';
+import AirTicketsViewApp from 'triporganizer/trip/containers/AirTicketsViewApp';
+import ReservationsViewApp from 'triporganizer/trip/containers/ReservationsViewApp';
 
 const mapStateToProps = (state, props) => ({
   isLoggedIn: state.auth.isLoggedIn
@@ -23,6 +25,8 @@ export default class App extends Component {
         FlightDetails: { screen: FlightApp },
         HotelDetails: { screen: HotelApp },
         DocumentView: { screen: DocumentViewApp },
+        AirTicketsView: { screen: AirTicketsViewApp },
+        ReservationsView: { screen: ReservationsViewApp },
       }, {
         headerMode: 'none',
       });

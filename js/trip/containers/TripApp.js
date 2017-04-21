@@ -5,7 +5,7 @@ import Colors from 'triporganizer/components/Colors';
 import TopBar from 'triporganizer/components/TopBar';
 
 import ItineraryApp from './ItineraryApp';
-import DocumentsApp from 'triporganizer/document/containers/DocumentsApp';
+import DocumentsApp from './DocumentsApp';
 
 const styles = StyleSheet.create({
   title: {

@@ -7,7 +7,6 @@ import TopBar from 'triporganizer/components/TopBar';
 import Colors from 'triporganizer/components/Colors';
 
 import TripsApp from 'triporganizer/trip/containers/TripsApp';
-import DocumentsApp from 'triporganizer/document/containers/DocumentsApp';
 
 import { logout } from "triporganizer/auth/auth";
 
@@ -28,7 +27,7 @@ export default class MainApp extends Component {
           tabBarUnderlineStyle={{ backgroundColor: Colors.secondary }}
         >
           <TripsApp tabLabel="MINHAS VIAGENS" navigation={this.props.navigation} />
-          <DocumentsApp tabLabel="MEUS DOCUMENTOS" navigation={this.props.navigation} />
+          <TripsApp tabLabel="OUTRAS VIAGENS" navigation={this.props.navigation} />
         </ScrollableTabView>
       </View>
     );

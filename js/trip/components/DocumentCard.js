@@ -4,8 +4,10 @@ import Card from 'triporganizer/components/Card';
 import Colors from 'triporganizer/components/Colors';
 
 const TYPES = {
-  passport: require('../images/passport.png'),
-  insurance: require('../images/lugage.png'),
+  passport: { target: 'DocumentView', image: require('../images/passport.png') },
+  insurance: { target: 'DocumentView', image: require('../images/lugage.png') },
+  airticket: { target: 'AirTicketsView', image: require('../images/airticket.png') },
+  reservation: { target: 'ReservationsView', image: require('../images/reservation.png') },
 }
 
 const styles = StyleSheet.create({
@@ -31,27 +33,27 @@ const styles = StyleSheet.create({
 });
 
 export default class DocumentCard extends Component {
-  goToDocument() {
+  goToDocument(target) {
     const { navigate } = this.props.navigation;
     const { document } = this.props;
 
-    navigate('DocumentView', { document: document });
+    navigate(target, { document: document });
   }
 
   render() {
     const { document } = this.props;
     const type = TYPES[document.type];
 
-    console.log(type, document.type, document);;
+    console.log(document);
 
     if(!type) {
       return null;
     }
 
     return (
-      <Card style={styles.card} onPress={() => this.goToDocument()}>
+      <Card style={styles.card} onPress={() => this.goToDocument(type.target)}>
         <View style={styles.cardMain}>
-          <Image source={type} />
+          <Image source={type.image} />
         </View>
 
         <View style={styles.cardBody}>

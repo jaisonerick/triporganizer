@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import _ from 'lodash';
+import R from 'ramda';
 import Colors from 'triporganizer/components/Colors';
 import DocumentCard from './DocumentCard';
 
@@ -16,13 +16,15 @@ const styles = StyleSheet.create({
 
 export default class Documents extends Component {
   getDocumentPairs() {
-    return _.chunk(this.props.documents, 2).map((pair) => (
+    return R.splitEvery(2, this.props.documents).map((pair) => (
       pair.length < 2 ? [...pair, { empty: true, key: '-' }] : pair
     ));
   }
 
   render() {
     const { navigation } = this.props;
+
+    console.log(this.props.documents);
 
     return (
       <View style={{ flex: 1 }}>

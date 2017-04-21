@@ -22,13 +22,8 @@ export const loadTrips = createThunkAction(LOAD_TRIPS, function() {
 
 
 // Reducers
-const trips = handleActions({
+export const trips = handleActions({
   [LOAD_TRIPS]: { next: (state, { payload }) => payload },
   [LOGOUT]: { next: (state, { payload }) => null },
 }, []);
-
-export default combineReducers({
-  trips,
-});
-
 

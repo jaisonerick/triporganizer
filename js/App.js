@@ -11,6 +11,7 @@ import HotelApp from 'triporganizer/trip/containers/HotelApp';
 import PlaceApp from 'triporganizer/trip/containers/PlaceApp';
 import DocumentViewApp from 'triporganizer/trip/containers/DocumentViewApp';
 import AirTicketsViewApp from 'triporganizer/trip/containers/AirTicketsViewApp';
+import TrainTicketsViewApp from 'triporganizer/trip/containers/TrainTicketsViewApp';
 import ReservationsViewApp from 'triporganizer/trip/containers/ReservationsViewApp';
 
 const mapStateToProps = (state, props) => ({
@@ -30,6 +31,7 @@ export default class App extends Component {
         PlaceDetails: { screen: PlaceApp },
         DocumentView: { screen: DocumentViewApp },
         AirTicketsView: { screen: AirTicketsViewApp },
+        TrainTicketsView: { screen: TrainTicketsViewApp },
         ReservationsView: { screen: ReservationsViewApp },
       }, {
         headerMode: 'none',

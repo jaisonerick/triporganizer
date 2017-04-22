@@ -7,6 +7,7 @@ const TYPES = {
   passport: { target: 'DocumentView', image: require('../images/passport.png') },
   insurance: { target: 'DocumentView', image: require('../images/lugage.png') },
   airticket: { target: 'AirTicketsView', image: require('../images/airticket.png') },
+  trainticket: { target: 'TrainTicketsView', image: require('../images/train.png') },
   reservation: { target: 'ReservationsView', image: require('../images/reservation.png') },
 }
 

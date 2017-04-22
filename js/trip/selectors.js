@@ -14,6 +14,11 @@ export const getAirTickets = createSelector(
   (appointments) => R.filter(appointment => appointment.type === 'FlightAppointment')(appointments)
 );
 
+export const getTrainTickets = createSelector(
+  getTripAppointments,
+  (appointments) => R.filter(appointment => appointment.type === 'TrainAppointment')(appointments)
+);
+
 export const getReservations = createSelector(
   getTripAppointments,
   (appointments) => R.filter(appointment => appointment.type === 'HotelAppointment')(appointments)
@@ -22,8 +27,14 @@ export const getReservations = createSelector(
 export const getDocumentList = createSelector(
   getTrip,
   getAirTickets,
+  getTrainTickets,
   getReservations,
-  (trip, airTickets, reservations) => R.reject(R.isNil)([...trip.documents, airTicketDocument(airTickets, trip), reservationDocument(reservations, trip)])
+  (trip, airTickets, trainTickets, reservations) => R.reject(R.isNil)([
+    ...trip.documents,
+    airTicketDocument(airTickets, trip),
+    trainTicketDocument(trainTickets, trip),
+    reservationDocument(reservations, trip)
+  ])
 );
 
 const airTicketDocument = (airTickets, trip) => (
@@ -31,6 +42,15 @@ const airTicketDocument = (airTickets, trip) => (
     key: 'airticket',
     type: 'airticket',
     title: 'Passagens Aéreas',
+    trip: trip
+  }
+);
+
+const trainTicketDocument = (trainTickets, trip) => (
+  trainTickets.length === 0 ? null : {
+    key: 'trainticket',
+    type: 'trainticket',
+    title: 'Passagens de Trem',
     trip: trip
   }
 );

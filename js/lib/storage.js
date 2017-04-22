@@ -1,4 +1,4 @@
-import { Image, AsyncStorage } from 'react-native';
+import { Platform, Image, AsyncStorage } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob'
 
 let memoryToken = undefined;
@@ -28,8 +28,84 @@ export const getAuthToken = async function() {
 
 const TRIPS = '@TripOrganizer:trips';
 
-export const storeTrips = async function(trips) {
-  return await AsyncStorage.setItem(TRIPS, JSON.stringify(trips));
+const downloadFile = async function(url, ext = 'png') {
+  if(!url) {
+    return null;
+  }
+
+  return await RNFetchBlob
+    .config({ fileCache: true, appendExt: 'png' })
+    .fetch('GET', url)
+    .then((res) => Platform.OS === 'android' ? `file://${res.path()}` : `${res.path()}`)
+}
+
+const offlineizeUpcomingTrip = async function(trip) {
+  let promo = await downloadFile(trip.promo, 'pdf');
+  let image = await downloadFile(trip.image);
+
+  return {
+    ...trip,
+    promo,
+    image,
+  };
+}
+
+const offlineizeDocument = async function(document) {
+  let url = await downloadFile(document.url, document.display_type === 'document' ? 'pdf' : 'png');
+
+  return {
+    ...document,
+    url,
+  };
+}
+
+const offlineizeAppointment = async function(appointment) {
+  let medium_image = await downloadFile(appointment.medium_image);
+  let details = {
+    ...appointment.details,
+    image: await downloadFile(appointment.details.image),
+  }
+
+  return {
+    ...appointment,
+    medium_image,
+    details,
+  };
+}
+
+const offlineizeTripDate = async function(tripDate) {
+  return {
+    ...tripDate,
+    appointments: await Promise.all(tripDate.appointments.map(offlineizeAppointment))
+  }
+}
+
+const offlineizeTrip = async function(trip) {
+  let image = await downloadFile(trip.image);
+  let documents = await Promise.all(trip.documents.map(offlineizeDocument));
+  let trip_dates = await Promise.all(trip.trip_dates.map(offlineizeTripDate));
+
+  return {
+    ...trip,
+    image,
+    documents,
+    trip_dates,
+  };
+}
+
+export const storeTrips = async function(payload) {
+  let upcoming = await Promise.all(
+    payload.upcoming.map(offlineizeUpcomingTrip)
+  );
+
+  let trips = await Promise.all(
+    payload.trips.map(offlineizeTrip)
+  );
+
+  return await AsyncStorage.setItem(TRIPS, JSON.stringify({
+    upcoming,
+    trips,
+  }));
 };
 
 export const getTrips = function() {

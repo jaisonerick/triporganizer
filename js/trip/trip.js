@@ -23,7 +23,12 @@ export const loadTrips = createThunkAction(LOAD_TRIPS, function() {
 
 // Reducers
 export const trips = handleActions({
-  [LOAD_TRIPS]: { next: (state, { payload }) => payload },
+  [LOAD_TRIPS]: { next: (state, { payload }) => payload.trips },
+  [LOGOUT]: { next: (state, { payload }) => null },
+}, []);
+
+export const upcomingTrips = handleActions({
+  [LOAD_TRIPS]: { next: (state, { payload }) => payload.upcoming },
   [LOGOUT]: { next: (state, { payload }) => null },
 }, []);
 

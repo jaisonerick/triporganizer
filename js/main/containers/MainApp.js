@@ -9,11 +9,26 @@ import Colors from 'triporganizer/components/Colors';
 import TripsApp from 'triporganizer/trip/containers/TripsApp';
 
 import { logout } from "triporganizer/auth/auth";
+import { loadTrips } from "triporganizer/trip/trip";
 
-@connect(null, {logout})
+const mapStateToProps = (state, props) => ({
+  trips: state.trips,
+  upcomingTrips: state.upcomingTrips,
+})
+
+const mapDispatchToProps = ({
+  logout,
+  loadTrips,
+})
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class MainApp extends Component {
+  componentWillMount() {
+    this.props.loadTrips();
+  }
+
   render() {
-    const { logout } = this.props;
+    const { trips, upcomingTrips, logout } = this.props;
 
     return (
       <View style={{flex: 1}}>
@@ -26,8 +41,8 @@ export default class MainApp extends Component {
           tabBarInactiveTextColor='white'
           tabBarUnderlineStyle={{ backgroundColor: Colors.secondary }}
         >
-          <TripsApp tabLabel="MINHAS VIAGENS" navigation={this.props.navigation} />
-          <TripsApp tabLabel="OUTRAS VIAGENS" navigation={this.props.navigation} />
+          <TripsApp trips={trips} tabLabel="MINHAS VIAGENS" navigation={this.props.navigation} />
+          <TripsApp trips={upcomingTrips} tabLabel="OUTRAS VIAGENS" navigation={this.props.navigation} />
         </ScrollableTabView>
       </View>
     );

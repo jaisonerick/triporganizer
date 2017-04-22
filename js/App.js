@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import LoginApp from 'triporganizer/auth/containers/LoginApp';
 import MainApp from 'triporganizer/main/containers/MainApp';
 import TripApp from 'triporganizer/trip/containers/TripApp';
+import UpcomingTripApp from 'triporganizer/trip/containers/UpcomingTripApp';
 import FlightApp from 'triporganizer/trip/containers/FlightApp';
 import TrainApp from 'triporganizer/trip/containers/TrainApp';
 import HotelApp from 'triporganizer/trip/containers/HotelApp';
@@ -25,6 +26,7 @@ export default class App extends Component {
       const Stack = StackNavigator({
         Main: { screen: MainApp },
         Trip: { screen: TripApp },
+        UpcomingTrip: { screen: UpcomingTripApp },
         FlightDetails: { screen: FlightApp },
         TrainDetails: { screen: TrainApp },
         HotelDetails: { screen: HotelApp },

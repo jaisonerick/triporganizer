@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Platform, Linking, Text, View, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from 'triporganizer/components/Colors';
 import OptionalText from 'triporganizer/components/OptionalText';
+import Touchable from 'triporganizer/components/Touchable';
 import Day from './itinerary/Day';
 
 const styles = StyleSheet.create({
@@ -93,6 +94,18 @@ const styles = StyleSheet.create({
 });
 
 export default class HotelDetails extends Component {
+  openUrl(url) {
+    Linking.openURL(url).catch(err => console.log(err));
+  }
+
+  openDirections(details) {
+    if(Platform.OS === 'ios') {
+      this.openUrl(`http://maps.apple.com?daddr=${details.latitude},${details.longitude}`);
+    } else {
+      this.openUrl(`google.navigation:q=${details.latitude},${details.longitude}`);
+    }
+  }
+
   render() {
     const { item } = this.props;
     const { details } = item;
@@ -147,21 +160,44 @@ export default class HotelDetails extends Component {
           }
         </View>
 
-        <View style={styles.info}>
-          <Icon name="ios-navigate" color="#686868" size={30} style={styles.infoIcon} />
-          <View style={styles.infoBody}>
-            <Text style={styles.infoTitle}>Endereço</Text>
-            <Text style={styles.infoValue}>{details.address}</Text>
+        {
+          !OptionalText.isEmpty(details.address) &&
+          <View style={styles.info}>
+            <Icon name="ios-navigate" color="#686868" size={30} style={styles.infoIcon} />
+            <Touchable style={styles.infoBody} onPress={() => this.openDirections(details)}>
+              <View style={styles.infoBody}>
+                <Text style={styles.infoTitle}>Endereço</Text>
+                <Text style={styles.infoValue}>{details.address}</Text>
+              </View>
+            </Touchable>
           </View>
-        </View>
+        }
 
-        <View style={styles.info}>
-          <Icon name="md-call" color="#686868" size={30} style={styles.infoIcon} />
-          <View style={styles.infoBody}>
-            <Text style={styles.infoTitle}>Telefone</Text>
-            <Text style={styles.infoValue}>{details.phone}</Text>
+        {
+          !OptionalText.isEmpty(details.phone) &&
+          <View style={styles.info}>
+            <Icon name="md-call" color="#686868" size={30} style={styles.infoIcon} />
+            <Touchable style={styles.infoBody} onPress={() => this.openUrl(`tel://${details.phone}`)}>
+              <View style={styles.infoBody}>
+                <Text style={styles.infoTitle}>Telefone</Text>
+                <Text style={styles.infoValue}>{details.phone}</Text>
+              </View>
+            </Touchable>
           </View>
-        </View>
+        }
+
+        {
+          !OptionalText.isEmpty(details.site) &&
+          <View style={styles.info}>
+            <Icon name="md-at" color="#686868" size={30} style={styles.infoIcon} />
+            <Touchable style={styles.infoBody} onPress={() => this.openUrl(details.site)}>
+              <View style={styles.infoBody}>
+                <Text style={styles.infoTitle}>Site</Text>
+                <Text style={styles.infoValue}>{details.site}</Text>
+              </View>
+            </Touchable>
+          </View>
+        }
       </View>
     );
   }

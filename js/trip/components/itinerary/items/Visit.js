@@ -23,13 +23,12 @@ const styles = StyleSheet.create({
 
 export default class Visit extends Component {
   render() {
-    const { details, navigation } = this.props;
+    const { details, navigation, appointment } = this.props;
 
     return (
-      <WithDetails>
+      <WithDetails navigation={navigation} screen='PlaceDetails' item={appointment}>
         <Text style={styles.title}>{ details.name }</Text>
         <View>
-          <Text style={styles.item}><Text>End.:</Text> <Text style={styles.strong}>{ details.address }</Text></Text>
           <Text style={styles.item}><Text style={styles.strong}>{ details.description }</Text></Text>
         </View>
       </WithDetails>

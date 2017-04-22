@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from 'triporganizer/components/Colors';
+import OptionalText from 'triporganizer/components/OptionalText';
 import WithDetails from './WithDetails';
 
 const styles = StyleSheet.create({
@@ -23,13 +24,21 @@ const styles = StyleSheet.create({
 
 export default class Train extends Component {
   render() {
-    const { details, navigation } = this.props;
+    const { details, navigation, appointment } = this.props;
 
     return (
-      <WithDetails>
-        <Text style={styles.title}>{ details.line }</Text>
+      <WithDetails navigation={navigation} screen='TrainDetails' item={appointment}>
+        <Text style={styles.title}>{ `${details.from} - ${details.to}` }</Text>
         <View>
-          <Text style={styles.item}><Text>End.:</Text> <Text style={styles.strong}>{ details.address }</Text></Text>
+          {
+            !OptionalText.isEmpty(details.ticket) &&
+            <Text style={styles.item}><Text>Ticket:</Text> <Text style={styles.strong}>{ details.ticket }</Text></Text>
+          }
+
+          {
+            !OptionalText.isEmpty(details.arrival) &&
+            <Text style={styles.item}><Text>Chegada:</Text> <Text style={styles.strong}>{ details.arrival }</Text></Text>
+          }
         </View>
       </WithDetails>
     );

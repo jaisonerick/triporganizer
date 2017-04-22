@@ -20,11 +20,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999'
   },
-  destinations: {
+  destination: {
+    marginBottom: 30,
+  },
+  destinationText: {
     fontSize: 30,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 20,
     color: '#333',
   },
   detailsBox: {
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class FlightDetails extends Component {
+export default class TrainDetails extends Component {
   render() {
     const { item } = this.props;
     const { details } = item;
@@ -70,60 +71,46 @@ export default class FlightDetails extends Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.blankBox}>
-          <Text style={styles.mainTitle}>{`${details.company_name} - ${details.flight_number}`}</Text>
-          <Text style={styles.company}>{`Operado por ${details.company_name}`}</Text>
+          <View style={styles.destination}>
+            <Text style={styles.destinationText}>{`${details.from} - ${details.to}`}</Text>
+          </View>
 
-          <Text style={styles.destinations}>{`${details.from} - ${details.to}`}</Text>
+          <Text style={styles.company}>{`Operado por ${details.company_name}`}</Text>
         </View>
 
         <View style={styles.detailsBox}>
           <View style={styles.detailsRow}>
-            <View style={[styles.detailsItem, { flex: 2 }]}>
+            <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Partida</Text>
               <Text style={styles.detailValue}>{details.departure_date}</Text>
             </View>
 
             <View style={styles.detailsItem}>
-              <Text style={styles.detailTitle}>Terminal</Text>
-              <OptionalText style={styles.detailValue} value={details.departure_platform} />
-            </View>
-
-            <View style={styles.detailsItem}>
-              <Text style={styles.detailTitle}>Portão</Text>
-              <OptionalText style={styles.detailValue} value={details.departure_gate} />
+              <Text style={styles.detailTitle}>Chegada</Text>
+              <Text style={styles.detailValue}>{details.arrival_date}</Text>
             </View>
           </View>
 
           <View style={[styles.detailsRow, {marginBottom: 0}]}>
-            <View style={[styles.detailsItem, {flex: 2}]}>
-              <Text style={styles.detailTitle}>Chegada</Text>
-              <Text style={styles.detailValue}>{details.arrival_date}</Text>
-            </View>
-
             <View style={styles.detailsItem}>
-              <Text style={styles.detailTitle}>Terminal</Text>
-              <OptionalText style={styles.detailValue} value={details.arrival_platform} />
-            </View>
-
-            <View style={styles.detailsItem}>
-              <Text style={styles.detailTitle}>Portão</Text>
-              <OptionalText style={styles.detailValue} value={details.arrival_gate} />
+              <Text style={styles.detailTitle}>Duração</Text>
+              <OptionalText style={styles.detailValue} value={details.duration} />
             </View>
           </View>
         </View>
         {
-          !OptionalText.isEmpty(details.seat) &&
+          !OptionalText.isEmpty(details.ticket) &&
           <View style={styles.confirmation}>
-            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Poltrona</Text>
-            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.seat}</Text>
+            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Ticket</Text>
+            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.ticket}</Text>
           </View>
         }
 
         {
-          !OptionalText.isEmpty(details.confirmation_number) &&
+          !OptionalText.isEmpty(details.info) &&
           <View style={styles.confirmation}>
-            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Número de Confirmação</Text>
-            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.confirmation_number}</Text>
+            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Informações</Text>
+            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.info}</Text>
           </View>
         }
       </View>

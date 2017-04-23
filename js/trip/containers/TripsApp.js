@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { Text, ScrollView, View, StyleSheet } from 'react-native';
 import Colors from 'triporganizer/components/Colors';
 import TripCard from '../components/TripCard';
 
@@ -27,6 +27,10 @@ export default class TripsApp extends Component {
     );
   }
 
+  renderLoading() {
+    return <Text style={styles.loadingText}>Carregando...</Text>
+  }
+
   render() {
     const { trips } = this.props;
 
@@ -37,6 +41,8 @@ export default class TripsApp extends Component {
           contentContainerStyle={styles.container}
         >
           { trips.map((trip) => this.renderTrip(trip)) }
+
+          { trips.length === 0 && this.renderLoading() }
         </ScrollView>
       </View>
     );
@@ -51,5 +57,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'stretch',
     padding: 4,
+  },
+  loadingText: {
+    fontSize: 20,
+    padding: 16,
+    textAlign: 'center',
   },
 });

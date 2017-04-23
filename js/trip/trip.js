@@ -8,7 +8,10 @@ const LOAD_TRIPS = 'triporganizer/trip/LOAD_TRIPS';
 const loadTripsLocally = async function(dispatch, getState) {
   console.log('LOCAL');
   let storedTrips = await getTrips();
-  dispatch({ type: LOAD_TRIPS, payload: storedTrips });
+
+  if(storedTrips) {
+    dispatch({ type: LOAD_TRIPS, payload: storedTrips });
+  }
 }
 
 export const loadTrips = function() {

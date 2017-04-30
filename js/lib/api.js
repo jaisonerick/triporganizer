@@ -2,7 +2,7 @@ import querystring from "querystring";
 import EventEmitter from "EventEmitter";
 import { getAuthToken } from "./storage";
 
-const BASE_URL = 'https://triporganizer-staging.herokuapp.com';
+const BASE_URL = 'http://localhost:3000';
 
 let events = new EventEmitter();
 

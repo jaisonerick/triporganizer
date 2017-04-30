@@ -22,6 +22,7 @@ export default class TripsApp extends Component {
         title={trip.name}
         subtitle={trip.dates}
         body={trip.description}
+        sponsors={trip.sponsors}
         onPress={() => this.onPress(trip)}
       />
     );

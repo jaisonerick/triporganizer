@@ -39,14 +39,45 @@ const downloadFile = async function(url, ext = 'png') {
     .then((res) => Platform.OS === 'android' ? `file://${res.path()}` : `${res.path()}`)
 }
 
+const SPONSOR_HEIGHT = 32;
+
+const offlineizeSponsor = async function(sponsor) {
+  let image = await downloadFile(sponsor.image);
+  let imageSize = await new Promise((resolve, reject) => {
+    Image.getSize(image, (width, height) => {
+      if(height > SPONSOR_HEIGHT) {
+        resolve({
+          width: width * SPONSOR_HEIGHT / height,
+          height: SPONSOR_HEIGHT,
+        });
+      } else {
+        resolve({
+          width: width / (SPONSOR_HEIGHT / height),
+          height: SPONSOR_HEIGHT,
+        });
+      }
+    }, reject);
+  });
+
+  return {
+    ...sponsor,
+    image: {
+      uri: image,
+      ...imageSize,
+    }
+  };
+}
+
 const offlineizeUpcomingTrip = async function(trip) {
   let promo = await downloadFile(trip.promo, 'pdf');
   let image = await downloadFile(trip.image);
+  let sponsors = await Promise.all(trip.sponsors.map(offlineizeSponsor));
 
   return {
     ...trip,
     promo,
     image,
+    sponsors,
   };
 }
 
@@ -84,12 +115,14 @@ const offlineizeTrip = async function(trip) {
   let image = await downloadFile(trip.image);
   let documents = await Promise.all(trip.documents.map(offlineizeDocument));
   let trip_dates = await Promise.all(trip.trip_dates.map(offlineizeTripDate));
+  let sponsors = await Promise.all(trip.sponsors.map(offlineizeSponsor));
 
   return {
     ...trip,
     image,
     documents,
     trip_dates,
+    sponsors,
   };
 }
 

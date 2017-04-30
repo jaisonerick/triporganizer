@@ -38,12 +38,50 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: Colors.primary,
     fontWeight: 'bold',
-  }
+  },
+  sponsorsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  sponsorsLeft: {
+    flex: 0,
+    marginRight: 12,
+  },
+  sponsorsTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  sponsorsRight: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  sponsorsImage: {
+    margin: 4,
+  },
 });
 
 export default class TripCard extends Component {
+  renderSponsors(sponsors) {
+    return (
+      <View style={styles.sponsorsContainer}>
+        <View style={styles.sponsorsLeft}>
+          <Text style={styles.sponsorsTitle}>Apoio:</Text>
+        </View>
+        <View style={styles.sponsorsRight}>
+          {
+            sponsors.map((sponsor) => (
+              <Image key={sponsor.id} source={sponsor.image} resizeMode="contain" style={styles.sponsorsImage} />
+            ))
+          }
+        </View>
+      </View>
+    );
+  }
+
   render() {
-    const {image, title, subtitle, body, onPress} = this.props;
+    const {image, title, subtitle, body, sponsors, onPress} = this.props;
 
     return (
       <Card onPress={onPress}>
@@ -61,10 +99,19 @@ export default class TripCard extends Component {
         </Image>
 
         <View style={styles.cardBody}>
-          <Text style={styles.bodyText}>
-            {body.toUpperCase()}
-          </Text>
+          {
+            sponsors.length === 0 &&
+            <Text style={styles.bodyText}>
+              {body.toUpperCase()}
+            </Text>
+          }
+
+          {
+            sponsors.length > 0 &&
+              this.renderSponsors(sponsors)
+          }
         </View>
+
       </Card>
     );
   }

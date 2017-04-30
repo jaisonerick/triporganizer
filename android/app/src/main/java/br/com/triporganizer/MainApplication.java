@@ -1,4 +1,4 @@
-package com.triporganizer;
+package br.com.triporganizer;
 
 import android.app.Application;
 

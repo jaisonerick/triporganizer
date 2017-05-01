@@ -41,10 +41,10 @@ export const loadTrips = function() {
 export const trips = handleActions({
   [LOAD_TRIPS]: { next: (state, { payload }) => payload.trips },
   [LOGOUT]: { next: (state, { payload }) => null },
-}, []);
+}, null);
 
 export const upcomingTrips = handleActions({
   [LOAD_TRIPS]: { next: (state, { payload }) => payload.upcoming },
   [LOGOUT]: { next: (state, { payload }) => null },
-}, []);
+}, null);
 

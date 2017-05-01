@@ -28,8 +28,27 @@ export default class TripsApp extends Component {
     );
   }
 
-  renderLoading() {
+  renderLoading(trips) {
+    if(trips !== null) {
+      return null;
+    }
+
     return <Text style={styles.loadingText}>Carregando...</Text>
+  }
+
+  renderTrips(trips) {
+    if(!trips || trips.length === 0) {
+      return null;
+    }
+    return trips.map((trip) => this.renderTrip(trip));
+  }
+
+  renderEmptyState(trips) {
+    if(!trips || trips.length > 0) {
+      return null;
+    }
+
+    return <Text style={styles.loadingText}>Nenhuma viagem encontrada.</Text>
   }
 
   render() {
@@ -41,9 +60,10 @@ export default class TripsApp extends Component {
           style={styles.scrollView}
           contentContainerStyle={styles.container}
         >
-          { trips.map((trip) => this.renderTrip(trip)) }
+          { this.renderLoading(trips) }
+          { this.renderTrips(trips) }
+          { this.renderEmptyState(trips) }
 
-          { trips.length === 0 && this.renderLoading() }
         </ScrollView>
       </View>
     );

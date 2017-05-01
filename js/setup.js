@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import momentLocale from 'moment/locale/pt-br';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'react-native-material-ui';

@@ -8,6 +8,7 @@ import TripApp from 'triporganizer/trip/containers/TripApp';
 import UpcomingTripApp from 'triporganizer/trip/containers/UpcomingTripApp';
 import FlightApp from 'triporganizer/trip/containers/FlightApp';
 import TrainApp from 'triporganizer/trip/containers/TrainApp';
+import BusApp from 'triporganizer/trip/containers/BusApp';
 import HotelApp from 'triporganizer/trip/containers/HotelApp';
 import PlaceApp from 'triporganizer/trip/containers/PlaceApp';
 import DocumentViewApp from 'triporganizer/trip/containers/DocumentViewApp';
@@ -29,6 +30,7 @@ export default class App extends Component {
         UpcomingTrip: { screen: UpcomingTripApp },
         FlightDetails: { screen: FlightApp },
         TrainDetails: { screen: TrainApp },
+        BusDetails: { screen: BusApp },
         HotelDetails: { screen: HotelApp },
         PlaceDetails: { screen: PlaceApp },
         DocumentView: { screen: DocumentViewApp },

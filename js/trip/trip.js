@@ -25,7 +25,10 @@ export const loadTrips = function() {
         console.log('REMOTE');
         let storedTrips = await getTrips();
         let trips = await TripsApi.list();
+
+        console.log(trips);
         await storeTrips(trips);
+        console.log('STORED!');
 
         await loadTripsLocally(dispatch, getState)
       }

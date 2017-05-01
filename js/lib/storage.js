@@ -1,5 +1,6 @@
 import { Platform, Image, AsyncStorage } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob'
+import moment from 'moment-timezone';
 
 let memoryToken = undefined;
 
@@ -37,6 +38,7 @@ const downloadFile = async function(url, ext = 'png') {
     .config({ fileCache: true, appendExt: 'png' })
     .fetch('GET', url)
     .then((res) => Platform.OS === 'android' ? `file://${res.path()}` : `${res.path()}`)
+    .catch(e => console.log(e));
 }
 
 const SPONSOR_HEIGHT = 32;
@@ -126,23 +128,57 @@ const offlineizeTrip = async function(trip) {
   };
 }
 
+const activateTrip = (trip) => (
+  {
+    ...trip,
+    trip_dates: trip.trip_dates.map(tripDate => ({
+      ...tripDate,
+      appointments: tripDate.appointments.map(appointment => {
+        if(!appointment.datetime) {
+          console.log('NO DATETIME');
+          return appointment;
+        }
+        console.log(appointment.datetime, moment(), moment(appointment.datetime).diff(moment()), moment(appointment.datetime).diff(moment()) > 0);
+        return {
+          ...appointment,
+          upcoming: moment(appointment.datetime).diff(moment()) > 0,
+        };
+      }),
+    }))
+  }
+);
+
 export const storeTrips = async function(payload) {
-  let upcoming = await Promise.all(
-    payload.upcoming.map(offlineizeUpcomingTrip)
-  );
+  try {
+    console.log('STORING: ', payload);
+    let upcoming = await Promise.all(
+      payload.upcoming.map(offlineizeUpcomingTrip)
+    );
 
-  let trips = await Promise.all(
-    payload.trips.map(offlineizeTrip)
-  );
+    let trips = await Promise.all(
+      payload.trips.map(offlineizeTrip)
+    );
+    console.log('STORED!');
 
-  return await AsyncStorage.setItem(TRIPS, JSON.stringify({
-    upcoming,
-    trips,
-  }));
+    return await AsyncStorage.setItem(TRIPS, JSON.stringify({
+      upcoming,
+      trips,
+    }));
+  } catch(e) { console.log(e); }
 };
 
 export const getTrips = function() {
-  return AsyncStorage.getItem(TRIPS).then((str) => JSON.parse(str));
+  return AsyncStorage.getItem(TRIPS)
+    .then((str) => JSON.parse(str))
+    .then(({ upcoming, trips }) => {
+      let result = {
+        upcoming,
+        trips: trips.map(trip => activateTrip(trip))
+      }
+      console.log('RESULT', result);
+      return result;
+    })
+    .catch(e => console.log(e))
 }
 
 const DOCUMENTS = '@TripOrganizer:documents';

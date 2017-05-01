@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Flight from './items/Flight';
 import Hotel from './items/Hotel';
 import Train from './items/Train';
+import Bus from './items/Bus';
 import Visit from './items/Visit';
 
 const TYPES = {
@@ -9,6 +10,8 @@ const TYPES = {
   'HotelAppointment': Hotel,
   'TrainAppointment': Train,
   'VisitAppointment': Visit,
+  'SuggestionAppointment': Visit,
+  'BusAppointment': Bus,
 }
 
 export default class ItemDetails extends Component {

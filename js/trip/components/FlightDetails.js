@@ -94,7 +94,7 @@ export default class FlightDetails extends Component {
             </View>
           </View>
 
-          <View style={[styles.detailsRow, {marginBottom: 0}]}>
+          <View style={[styles.detailsRow]}>
             <View style={[styles.detailsItem, {flex: 2}]}>
               <Text style={styles.detailTitle}>Chegada</Text>
               <Text style={styles.detailValue}>{details.arrival_date}</Text>
@@ -108,6 +108,13 @@ export default class FlightDetails extends Component {
             <View style={styles.detailsItem}>
               <Text style={styles.detailTitle}>Portão</Text>
               <OptionalText style={styles.detailValue} value={details.arrival_gate} />
+            </View>
+          </View>
+
+          <View style={[styles.detailsRow, {marginBottom: 0}]}>
+            <View style={styles.detailsItem}>
+              <Text style={styles.detailTitle}>Duração</Text>
+              <OptionalText style={styles.detailValue} value={details.duration} />
             </View>
           </View>
         </View>

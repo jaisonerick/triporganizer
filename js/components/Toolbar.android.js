@@ -26,7 +26,6 @@ const Toolbar = (props) => {
       iconColor: props.iconColor || Colors.white,
       show: 'always',
       showWithText: false,
-      onActionSelected: () => onRightMenuPress()
     }];
   }
 
@@ -42,6 +41,7 @@ const Toolbar = (props) => {
       subtitleColor={Colors.white}
       onIconClicked={onMenuPress}
       actions={actions}
+      onActionSelected={() => onRightMenuPress()}
     >
       {props.children}
     </ToolbarAndroid>

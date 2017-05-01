@@ -31,6 +31,7 @@ export default class TextInput extends Component {
         ref={(input) => this.input = input}
         style={[styles.input, style]}
         placeholderTextColor="white"
+        underlineColorAndroid="rgba(0,0,0,0)"
         {...props}
       />
     );

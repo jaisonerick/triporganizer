@@ -1,6 +1,6 @@
 import { handleActions, combineReducers, createThunkAction } from "triporganizer/lib/redux";
 import { SessionApi } from 'triporganizer/services';
-import { setAuthToken, clearAuthToken } from 'triporganizer/lib/storage';
+import { setAuthToken, clearAuthToken, clearTrips, clearDocuments } from 'triporganizer/lib/storage';
 import { refreshCurrentUser} from 'triporganizer/redux/user';
 
 //login
@@ -27,6 +27,8 @@ export const LOGOUT = "triporganizer/auth/LOGOUT";
 export const logout = createThunkAction(LOGOUT, function() {
   return function(dispatch, getState) {
     clearAuthToken();
+    clearTrips();
+    clearDocuments();
   }
 });
 

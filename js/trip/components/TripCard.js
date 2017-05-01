@@ -100,14 +100,14 @@ export default class TripCard extends Component {
 
         <View style={styles.cardBody}>
           {
-            sponsors.length === 0 &&
+            (!sponsors || sponsors.length === 0) &&
             <Text style={styles.bodyText}>
               {body.toUpperCase()}
             </Text>
           }
 
           {
-            sponsors.length > 0 &&
+            sponsors && sponsors.length > 0 &&
               this.renderSponsors(sponsors)
           }
         </View>

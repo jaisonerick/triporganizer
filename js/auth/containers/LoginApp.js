@@ -87,7 +87,7 @@ export default class LoginApp extends Component {
 
           <PrimaryButton text="ENTRAR" onPress={() => this.login()} />
 
-          <Text style={styles.message}>Com o trip organizer você tem acesso ao seu roteiro de viajem, suas informações e dicas úteis</Text>
+          <Text style={styles.message}>Com o trip organizer você tem acesso ao seu roteiro de viagem, suas informações e dicas úteis</Text>
         </KeyboardAwareScrollView>
       </View>
     );
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: 40,
     marginBottom: 70,
+    alignSelf: 'center',
   },
   scroll: {
     flex: 1,

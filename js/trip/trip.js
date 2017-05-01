@@ -1,6 +1,6 @@
 import { handleActions, combineReducers, createThunkAction } from "triporganizer/lib/redux";
 import { TripsApi } from 'triporganizer/services';
-import { LOGOUT } from 'triporganizer/auth/auth';
+import { LOGOUT, logout } from 'triporganizer/auth/auth';
 import { storeTrips, getTrips } from 'triporganizer/lib/storage';
 
 const LOAD_TRIPS = 'triporganizer/trip/LOAD_TRIPS';
@@ -22,13 +22,12 @@ export const loadTrips = function() {
       const { isConnected } = getState();
 
       if(isConnected) {
-        console.log('REMOTE');
-        let storedTrips = await getTrips();
         let trips = await TripsApi.list();
-
-        console.log(trips);
+        if(trips.status === 401) {
+          dispatch(logout());
+          return;
+        }
         await storeTrips(trips);
-        console.log('STORED!');
 
         await loadTripsLocally(dispatch, getState)
       }

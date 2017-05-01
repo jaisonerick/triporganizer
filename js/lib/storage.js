@@ -135,10 +135,8 @@ const activateTrip = (trip) => (
       ...tripDate,
       appointments: tripDate.appointments.map(appointment => {
         if(!appointment.datetime) {
-          console.log('NO DATETIME');
           return appointment;
         }
-        console.log(appointment.datetime, moment(), moment(appointment.datetime).diff(moment()), moment(appointment.datetime).diff(moment()) > 0);
         return {
           ...appointment,
           upcoming: moment(appointment.datetime).diff(moment()) > 0,
@@ -150,7 +148,6 @@ const activateTrip = (trip) => (
 
 export const storeTrips = async function(payload) {
   try {
-    console.log('STORING: ', payload);
     let upcoming = await Promise.all(
       payload.upcoming.map(offlineizeUpcomingTrip)
     );
@@ -158,7 +155,6 @@ export const storeTrips = async function(payload) {
     let trips = await Promise.all(
       payload.trips.map(offlineizeTrip)
     );
-    console.log('STORED!');
 
     return await AsyncStorage.setItem(TRIPS, JSON.stringify({
       upcoming,
@@ -170,15 +166,24 @@ export const storeTrips = async function(payload) {
 export const getTrips = function() {
   return AsyncStorage.getItem(TRIPS)
     .then((str) => JSON.parse(str))
-    .then(({ upcoming, trips }) => {
-      let result = {
-        upcoming,
-        trips: trips.map(trip => activateTrip(trip))
+    .then((stored) => {
+      if(!stored) {
+        return {
+          upcoming: null,
+          trips: null,
+        };
       }
-      console.log('RESULT', result);
+
+      let result = {
+        upcoming: stored.upcoming,
+        trips: stored.trips && stored.trips.map(trip => activateTrip(trip))
+      }
       return result;
-    })
-    .catch(e => console.log(e))
+    });
+}
+
+export const clearTrips = function() {
+  return AsyncStorage.removeItem(TRIPS);
 }
 
 const DOCUMENTS = '@TripOrganizer:documents';
@@ -210,3 +215,6 @@ export const getDocuments = function() {
   return AsyncStorage.getItem(DOCUMENTS).then((str) => JSON.parse(str));
 }
 
+export const clearDocuments = function() {
+  return AsyncStorage.removeItem(DOCUMENTS);
+}

@@ -35,7 +35,7 @@ const downloadFile = async function(url, ext = 'png') {
   }
 
   return await RNFetchBlob
-    .config({ fileCache: true, appendExt: 'png' })
+    .config({ fileCache: true, appendExt: ext })
     .fetch('GET', url)
     .then((res) => Platform.OS === 'android' ? `file://${res.path()}` : `${res.path()}`)
     .catch(e => console.log(e));

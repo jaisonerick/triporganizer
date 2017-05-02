@@ -28,7 +28,7 @@ export default class DocumentView extends Component {
         {
           document.display_type == 'image' &&
           <PhotoView
-            source={{ uri: `file:///${document.local_url}`, width: document.width, height: document.height }}
+            source={{ uri: document.url }}
             minimumZoomScale={0.1}
             maximumZoomScale={5}
             androidScaleType="center"
@@ -38,7 +38,7 @@ export default class DocumentView extends Component {
 
         {
           document.display_type == 'document' &&
-          <PDFView path={document.local_url} style={{flex: 1}} />
+          <PDFView path={document.url} style={{flex: 1}} />
         }
       </View>
     );

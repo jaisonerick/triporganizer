@@ -1,4 +1,4 @@
-package br.com.triporganizer;
+package com.triporganizer;
 
 import com.facebook.react.ReactActivity;
 

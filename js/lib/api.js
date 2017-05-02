@@ -2,7 +2,7 @@ import querystring from "querystring";
 import EventEmitter from "EventEmitter";
 import { getAuthToken } from "./storage";
 
-const BASE_URL = 'http://192.168.1.3:3000';
+const BASE_URL = 'http://www.triporganizer.com.br';
 
 let events = new EventEmitter();
 

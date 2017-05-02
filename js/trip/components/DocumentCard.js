@@ -9,7 +9,7 @@ const TYPES = {
   airticket: { target: 'AirTicketsView', image: require('../images/airticket.png') },
   trainticket: { target: 'TrainTicketsView', image: require('../images/train.png') },
   reservation: { target: 'ReservationsView', image: require('../images/reservation.png') },
-  custom_document: { target: 'DocumentView', image: require('../images/custom_document.png') },
+  custom_document: { target: 'DocumentView', image: require('../images/passport.png') },
 }
 
 const styles = StyleSheet.create({

@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { RefreshControl, Text, ScrollView, View, StyleSheet } from 'react-native';
 import Colors from 'triporganizer/components/Colors';
 import TripCard from '../components/TripCard';
 
+import { loadTripsRemotely } from "triporganizer/trip/trip";
+
+const mapStateToProps = (state, props) => ({
+  loading: state.loadingTrips,
+})
+
+const mapDispatchToProps = ({
+  loadTripsRemotely,
+})
+
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class TripsApp extends Component {
   onPress(trip) {
     const { navigate } = this.props.navigation;
@@ -28,14 +41,6 @@ export default class TripsApp extends Component {
     );
   }
 
-  renderLoading(trips) {
-    if(trips !== null) {
-      return null;
-    }
-
-    return <Text style={styles.loadingText}>Carregando...</Text>
-  }
-
   renderTrips(trips) {
     if(!trips || trips.length === 0) {
       return null;
@@ -51,6 +56,13 @@ export default class TripsApp extends Component {
     return <Text style={styles.loadingText}>Nenhuma viagem encontrada.</Text>
   }
 
+  renderRefreshControl() {
+    return <RefreshControl
+      refreshing={this.props.loading}
+      onRefresh={() => this.props.loadTripsRemotely()}
+    />
+  }
+
   render() {
     const { trips } = this.props;
 
@@ -59,8 +71,8 @@ export default class TripsApp extends Component {
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.container}
+          refreshControl={this.renderRefreshControl()}
         >
-          { this.renderLoading(trips) }
           { this.renderTrips(trips) }
           { this.renderEmptyState(trips) }
 

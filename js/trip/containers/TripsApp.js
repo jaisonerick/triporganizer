@@ -49,7 +49,7 @@ export default class TripsApp extends Component {
   }
 
   renderEmptyState(trips) {
-    if(!trips || trips.length > 0) {
+    if(this.props.loading || !trips || trips.length > 0) {
       return null;
     }
 

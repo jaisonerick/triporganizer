@@ -38,13 +38,15 @@ const downloadFile = async function(url, ext = 'png') {
     .config({ fileCache: true, appendExt: ext })
     .fetch('GET', url)
     .then((res) => Platform.OS === 'android' ? `file://${res.path()}` : `${res.path()}`)
-    .catch(e => console.log(e));
 }
 
 const SPONSOR_HEIGHT = 32;
 
 const offlineizeSponsor = async function(sponsor) {
   let image = await downloadFile(sponsor.image);
+  if(!image) {
+    return null;
+  }
   let imageSize = await new Promise((resolve, reject) => {
     Image.getSize(image, (width, height) => {
       if(height > SPONSOR_HEIGHT) {
@@ -73,7 +75,7 @@ const offlineizeSponsor = async function(sponsor) {
 const offlineizeUpcomingTrip = async function(trip) {
   let promo = await downloadFile(trip.promo, 'pdf');
   let image = await downloadFile(trip.image);
-  let sponsors = await Promise.all(trip.sponsors.map(offlineizeSponsor));
+  let sponsors = (await Promise.all(trip.sponsors.map(offlineizeSponsor))).filter(sponsor => sponsor);
 
   return {
     ...trip,
@@ -117,7 +119,7 @@ const offlineizeTrip = async function(trip) {
   let image = await downloadFile(trip.image);
   let documents = await Promise.all(trip.documents.map(offlineizeDocument));
   let trip_dates = await Promise.all(trip.trip_dates.map(offlineizeTripDate));
-  let sponsors = await Promise.all(trip.sponsors.map(offlineizeSponsor));
+  let sponsors = (await Promise.all(trip.sponsors.map(offlineizeSponsor))).filter(sponsor => sponsor);
 
   return {
     ...trip,

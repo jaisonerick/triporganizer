@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     width: null,
     height: 160,
   },
+  noImageTrip: {
+    flex: 1,
+    height: 160,
+  },
   cardContainer: {
     flex: 1,
   },
@@ -71,11 +75,28 @@ export default class TripCard extends Component {
         </View>
         <View style={styles.sponsorsRight}>
           {
-            sponsors.map((sponsor) => (
+            sponsors.filter(sponsor => sponsor.image).map((sponsor) => (
               <Image key={sponsor.id} source={sponsor.image} resizeMode="contain" style={styles.sponsorsImage} />
             ))
           }
         </View>
+      </View>
+    );
+  }
+
+  renderMain(children) {
+    const { image } = this.props;
+
+    if(image && image.url) {
+      return (
+        <Image source={image} style={styles.backgroundImage}>
+          {children}
+        </Image>
+      );
+    }
+    return (
+      <View style={styles.noImageTrip}>
+        {children}
       </View>
     );
   }
@@ -85,18 +106,20 @@ export default class TripCard extends Component {
 
     return (
       <Card onPress={onPress}>
-        <Image source={image} style={styles.backgroundImage}>
-          <LinearGradient colors={['rgba(0,0,0,.4)', 'rgba(0,0,0,.1)']} style={styles.cardContainer}>
-            <View style={styles.header}>
-              <Text style={styles.title}>
-                {title.toUpperCase()}
-              </Text>
-              <Text style={styles.subtitle}>
-                {subtitle.toUpperCase()}
-              </Text>
-            </View>
-          </LinearGradient>
-        </Image>
+        {
+          this.renderMain(
+            <LinearGradient colors={['rgba(0,0,0,.4)', 'rgba(0,0,0,.1)']} style={styles.cardContainer}>
+              <View style={styles.header}>
+                <Text style={styles.title}>
+                  {title.toUpperCase()}
+                </Text>
+                <Text style={styles.subtitle}>
+                  {subtitle.toUpperCase()}
+                </Text>
+              </View>
+            </LinearGradient>
+          )
+        }
 
         <View style={styles.cardBody}>
           {

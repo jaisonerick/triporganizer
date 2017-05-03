@@ -23,6 +23,9 @@ export default class DocumentView extends Component {
   render() {
     const { document } = this.props;
     console.log(document);
+    if(!document.url) {
+      return null;
+    }
     return (
       <View style={styles.container}>
         {

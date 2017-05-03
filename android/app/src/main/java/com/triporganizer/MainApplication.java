@@ -3,6 +3,7 @@ package com.triporganizer;
 import android.app.Application;
 
 import com.airbnb.android.react.maps.MapsPackage;
+import com.crashlytics.android.answers.Answers;
 import com.facebook.react.ReactApplication;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -14,6 +15,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    Fabric.with(new Fabric.Builder(this).kits(new Answers()).debuggable(true).build());
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

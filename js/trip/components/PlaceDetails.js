@@ -110,9 +110,12 @@ export default class PlaceDetails extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{flex: 1, height: 200}}>
-          <Image source={{uri: details.image}} resizeMode="cover" style={{flex: 1}} />
-        </View>
+        {
+          details.image &&
+          <View style={{flex: 1, height: 200}}>
+            <Image source={{uri: details.image}} resizeMode="cover" style={{flex: 1}} />
+          </View>
+        }
 
         <View style={styles.info}>
           <Icon name="ios-bulb" color="#686868" size={30} style={styles.infoIcon} />

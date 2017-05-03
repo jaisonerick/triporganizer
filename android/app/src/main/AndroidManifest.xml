@@ -30,6 +30,11 @@
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
+    <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="3049b119dbdcb42f8a35e90e0092cbe34a160ac0"
+        />
+
       <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyApz18GDTxyKCGZBaAT75bJDf3umlLiG2E" />

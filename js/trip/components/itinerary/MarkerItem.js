@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Image, Text, View, StyleSheet } from 'react-native';
+import { Linking, Image, Text, View, StyleSheet } from 'react-native';
+import Hyperlink from 'react-native-hyperlink'
 import Colors from 'triporganizer/components/Colors';
 import Flight from './items/Flight';
 
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
   },
 
   itemContent: {
+    flex: 1,
     marginLeft: -27,
     paddingLeft: 46,
     borderLeftWidth: 9,
@@ -61,10 +63,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#555',
-    fontWeight: 'bold',
     fontSize: 15,
     lineHeight: 18,
-  }
+  },
+  linkStyle: {
+    color: Colors.primaryDark,
+  },
 });
 
 function getBorderStyle(_style, props) {
@@ -90,14 +94,21 @@ function getIconStyle(_style, props) {
 }
 
 export default class MarkerItem extends Component {
+  openUrl(url) {
+    Linking.openURL(url).catch(err => console.log(err));
+  }
+
   render() {
     return (
       <View style={styles.item}>
         <View style={getIconStyle(styles.icon, this.props)} />
 
-        <View style={getBorderStyle(styles.itemContent, this.props)}>
-          <Text style={styles.text}>Teste</Text>
-        </View>
+        <Hyperlink
+          style={getBorderStyle(styles.itemContent, this.props)}
+          linkStyle={styles.linkStyle}
+          onPress={ url => this.openUrl(url) }>
+          <Text style={styles.text}>{this.props.description}</Text>
+        </Hyperlink>
       </View>
     );
   }

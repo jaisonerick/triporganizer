@@ -118,7 +118,7 @@ export default class PlaceDetails extends Component {
           <Icon name="ios-bulb" color="#686868" size={30} style={styles.infoIcon} />
           <View style={styles.infoBody}>
             <Text style={styles.infoTitle}>Informações</Text>
-            <Text style={styles.infoValue}>{details.description}</Text>
+            <Text style={styles.infoValue}>{details.long_description}</Text>
           </View>
         </View>
 

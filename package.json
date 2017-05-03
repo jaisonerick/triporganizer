@@ -17,6 +17,7 @@
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.43.2",
 		"react-native-fetch-blob": "^0.10.4",
+		"react-native-hyperlink": "^0.0.9",
 		"react-native-keyboard-aware-scroll-view": "^0.2.8",
 		"react-native-linear-gradient": "^2.0.0",
 		"react-native-maps": "^0.14.0",

@@ -23,7 +23,7 @@ export default class UpcomingTrip extends Component {
 
     return (
       <View style={styles.container}>
-        <PDFView path={trip.promo} style={{flex: 1}} />
+        <PDFView path={trip.promo.replace('file://', '')} style={{flex: 1}} />
       </View>
     );
   }

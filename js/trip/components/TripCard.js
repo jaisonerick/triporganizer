@@ -87,7 +87,7 @@ export default class TripCard extends Component {
   renderMain(children) {
     const { image } = this.props;
 
-    if(image && image.url) {
+    if(image) {
       return (
         <Image source={image} style={styles.backgroundImage}>
           {children}

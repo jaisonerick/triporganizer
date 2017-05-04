@@ -44,6 +44,7 @@ const SPONSOR_HEIGHT = 32;
 
 const offlineizeSponsor = async function(sponsor) {
   let image = await downloadFile(sponsor.image);
+  console.log(sponsor);
   if(!image) {
     return null;
   }

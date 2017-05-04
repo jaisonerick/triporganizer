@@ -22,6 +22,7 @@
 		"react-native-linear-gradient": "^2.0.0",
 		"react-native-maps": "^0.14.0",
 		"react-native-material-ui": "^1.8.0",
+		"react-native-mixpanel": "^0.0.15",
 		"react-native-pdf-view": "git://github.com/cnjon/react-native-pdf-view#2a7be88",
 		"react-native-photo-view": "^1.2.0",
 		"react-native-scrollable-tab-view": "^0.7.4",

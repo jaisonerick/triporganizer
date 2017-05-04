@@ -3,6 +3,7 @@ import moment from 'moment-timezone';
 import momentLocale from 'moment/locale/pt-br';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'react-native-material-ui';
+import Mixpanel from 'react-native-mixpanel';
 import reducers from './reducers';
 import Colors from './components/Colors';
 import { getAuthToken } from './lib/storage';
@@ -19,6 +20,8 @@ export default function setup() {
   };
 
   moment.locale('pt-br', momentLocale);
+
+  Mixpanel.sharedInstanceWithToken('624dfa6b4837615d74c46bd64b13293f');
 
   class Root extends Component {
     constructor() {
@@ -44,6 +47,7 @@ export default function setup() {
       }
 
       console.log(store.getState());
+      Mixpanel.track("App Launched");
 
       return (
         <ThemeProvider uiTheme={uiTheme}>

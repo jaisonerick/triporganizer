@@ -158,6 +158,7 @@ repositories {
 }
 
 dependencies {
+    compile project(':react-native-mixpanel')
     compile project(':react-native-photo-view')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-pdf-view')

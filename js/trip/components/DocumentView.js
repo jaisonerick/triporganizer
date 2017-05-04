@@ -41,7 +41,7 @@ export default class DocumentView extends Component {
 
         {
           document.display_type == 'document' &&
-          <PDFView path={document.url} style={{flex: 1}} />
+          <PDFView path={document.url.replace('file://', '')} style={{flex: 1}} />
         }
       </View>
     );

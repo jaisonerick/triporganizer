@@ -10,6 +10,7 @@ import TripsApp from 'triporganizer/trip/containers/TripsApp';
 
 import { logout } from "triporganizer/auth/auth";
 import { loadTrips } from "triporganizer/trip/trip";
+import { refreshCurrentUser } from "triporganizer/redux/user";
 
 const mapStateToProps = (state, props) => ({
   trips: state.trips,
@@ -19,11 +20,13 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = ({
   logout,
   loadTrips,
+  refreshCurrentUser,
 })
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class MainApp extends Component {
   componentWillMount() {
+    this.props.refreshCurrentUser();
     this.props.loadTrips();
   }
 

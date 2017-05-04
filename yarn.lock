@@ -3129,6 +3129,10 @@ react-native-material-ui@^1.8.0:
     react-native-material-design-styles "^0.2.6"
     react-native-vector-icons "3.0.0"
 
+react-native-mixpanel@^0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/react-native-mixpanel/-/react-native-mixpanel-0.0.15.tgz#02c10ea7a4317f893685c62ebb09c82a2bab3db8"
+
 "react-native-pdf-view@git://github.com/cnjon/react-native-pdf-view#2a7be88":
   version "0.4.0"
   resolved "git://github.com/cnjon/react-native-pdf-view#2a7be88"

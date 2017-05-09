@@ -27,7 +27,26 @@ export const getAuthToken = async function() {
   return memoryToken;
 }
 
-const TRIPS = '@TripOrganizer:trips';
+const ASSETS = '@TripOrganizer:assets';
+let memoryAssets = undefined;
+
+const getAssets = async function() {
+  if(memoryAssets === undefined) {
+    try {
+      memoryAssets = (JSON.parse(await AsyncStorage.getItem(ASSETS))) || {};
+    } catch(error) {
+      memoryAssets = undefined;
+    }
+  }
+  return memoryAssets || {};
+}
+
+const setAsset = async function(url, assetUrl) {
+  memoryAssets = await getAssets();
+  memoryAssets[url] = assetUrl;
+
+  return await AsyncStorage.setItem(ASSETS, JSON.stringify(memoryAssets));
+}
 
 const downloadFile = async function(url, ext = 'png') {
   if(!url) {
@@ -40,14 +59,39 @@ const downloadFile = async function(url, ext = 'png') {
     .then((res) => Platform.OS === 'android' ? `file://${res.path()}` : `${res.path()}`)
 }
 
+export const getAssetUrl = async function(url, ext = 'png') {
+  if(!url) {
+    return null;
+  }
+
+  try {
+    let assets = await getAssets();
+    let assetUrl = assets[url];
+
+    if(assetUrl !== undefined) {
+      return assetUrl;
+    }
+
+    assetUrl = await downloadFile(url, ext);
+    await setAsset(url, assetUrl);
+
+    return assetUrl;
+  } catch(e) {
+    return null;
+  }
+}
+
+const TRIPS = '@TripOrganizer:trips';
+
 const SPONSOR_HEIGHT = 32;
 
 const offlineizeSponsor = async function(sponsor) {
-  let image = await downloadFile(sponsor.image);
-  console.log(sponsor);
+  let image = await getAssetUrl(sponsor.image);
+
   if(!image) {
     return null;
   }
+
   let imageSize = await new Promise((resolve, reject) => {
     Image.getSize(image, (width, height) => {
       if(height > SPONSOR_HEIGHT) {
@@ -74,8 +118,8 @@ const offlineizeSponsor = async function(sponsor) {
 }
 
 const offlineizeUpcomingTrip = async function(trip) {
-  let promo = await downloadFile(trip.promo, 'pdf');
-  let image = await downloadFile(trip.image);
+  let promo = await getAssetUrl(trip.promo, 'pdf');
+  let image = await getAssetUrl(trip.image);
   let sponsors = (await Promise.all(trip.sponsors.map(offlineizeSponsor))).filter(sponsor => sponsor);
 
   return {
@@ -87,7 +131,7 @@ const offlineizeUpcomingTrip = async function(trip) {
 }
 
 const offlineizeDocument = async function(document) {
-  let url = await downloadFile(document.url, document.display_type === 'document' ? 'pdf' : 'png');
+  let url = await getAssetUrl(document.url, document.display_type === 'document' ? 'pdf' : 'png');
 
   return {
     ...document,
@@ -96,10 +140,10 @@ const offlineizeDocument = async function(document) {
 }
 
 const offlineizeAppointment = async function(appointment) {
-  let medium_image = await downloadFile(appointment.medium_image);
+  let medium_image = await getAssetUrl(appointment.medium_image);
   let details = {
     ...appointment.details,
-    image: await downloadFile(appointment.details.image),
+    image: await getAssetUrl(appointment.details.image),
   }
 
   return {
@@ -117,7 +161,7 @@ const offlineizeTripDate = async function(tripDate) {
 }
 
 const offlineizeTrip = async function(trip) {
-  let image = await downloadFile(trip.image);
+  let image = await getAssetUrl(trip.image);
   let documents = await Promise.all(trip.documents.map(offlineizeDocument));
   let trip_dates = await Promise.all(trip.trip_dates.map(offlineizeTripDate));
   let sponsors = (await Promise.all(trip.sponsors.map(offlineizeSponsor))).filter(sponsor => sponsor);

@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   sponsorsContainer: {
+    flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
+    flexWrap: 'wrap',
   },
-
   sponsorsLeft: {
     flex: 0,
     marginRight: 12,
@@ -55,11 +55,6 @@ const styles = StyleSheet.create({
   sponsorsTitle: {
     fontSize: 12,
     fontWeight: 'bold',
-  },
-  sponsorsRight: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
   },
   sponsorsImage: {
     margin: 4,
@@ -70,16 +65,11 @@ export default class TripCard extends Component {
   renderSponsors(sponsors) {
     return (
       <View style={styles.sponsorsContainer}>
-        <View style={styles.sponsorsLeft}>
-          <Text style={styles.sponsorsTitle}>Apoio:</Text>
-        </View>
-        <View style={styles.sponsorsRight}>
-          {
-            sponsors.filter(sponsor => sponsor.image).map((sponsor) => (
-              <Image key={sponsor.id} source={sponsor.image} resizeMode="contain" style={styles.sponsorsImage} />
-            ))
-          }
-        </View>
+        {
+          sponsors.filter(sponsor => sponsor.image).map((sponsor) => (
+            <Image key={sponsor.id} source={sponsor.image} resizeMode="contain" style={styles.sponsorsImage} />
+          ))
+        }
       </View>
     );
   }

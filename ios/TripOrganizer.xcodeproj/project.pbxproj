@@ -48,6 +48,7 @@
 		3358050C1EBAA8D700578538 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3358050B1EBAA8D700578538 /* CoreGraphics.framework */; };
 		3358050E1EBAA8DE00578538 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3358050D1EBAA8DE00578538 /* QuartzCore.framework */; };
 		335806291EBAAF8D00578538 /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 335806201EBAAF6D00578538 /* Mixpanel.framework */; };
+		3358062B1EBAD2B900578538 /* Mixpanel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 335806201EBAAF6D00578538 /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		586FB71BC68C4C5ABF6C1229 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EFF98D8E28B463DB673AF9B /* MaterialCommunityIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		65C4212B892246958465B5EA /* libRNMixpanel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CEEB819ADF4F14903F9FC2 /* libRNMixpanel.a */; };
@@ -332,6 +333,19 @@
 			remoteInfo = RCTText;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3358062A1EBAD23D00578538 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3358062B1EBAD2B900578538 /* Mixpanel.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0017FA52D9954337A438E3B7 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -766,6 +780,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				335804A51EB9FAD500578538 /* ShellScript */,
+				3358062A1EBAD23D00578538 /* CopyFiles */,
 			);
 			buildRules = (
 			);

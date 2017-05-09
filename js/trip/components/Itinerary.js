@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import Colors from 'triporganizer/components/Colors';
 import Day from './itinerary/Day';
 

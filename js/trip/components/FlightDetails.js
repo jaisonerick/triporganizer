@@ -119,6 +119,14 @@ export default class FlightDetails extends Component {
           </View>
         </View>
         {
+          !OptionalText.isEmpty(details.company_phone) &&
+          <View style={styles.confirmation}>
+            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Telefone</Text>
+            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.company_phone}</Text>
+          </View>
+        }
+
+        {
           !OptionalText.isEmpty(details.seat) &&
           <View style={styles.confirmation}>
             <Text style={[styles.detailTitle, styles.confirmationTitle]}>Poltrona</Text>

@@ -135,25 +135,32 @@ export default class PlaceDetails extends Component {
           </Touchable>
         </View>
 
-        <View style={styles.info}>
-          <Icon name="md-call" color="#686868" size={30} style={styles.infoIcon} />
-          <Touchable style={styles.infoBody} onPress={() => this.openUrl(`tel://${details.phone}`)}>
-            <View style={styles.infoBody}>
-              <Text style={styles.infoTitle}>Telefone</Text>
-              <Text style={styles.infoValue}>{details.phone}</Text>
-            </View>
-          </Touchable>
-        </View>
 
-        <View style={styles.info}>
-          <Icon name="md-at" color="#686868" size={30} style={styles.infoIcon} />
-          <Touchable style={styles.infoBody} onPress={() => this.openUrl(details.site)}>
-            <View style={styles.infoBody}>
-              <Text style={styles.infoTitle}>Site</Text>
-              <Text style={styles.infoValue}>{details.site}</Text>
-            </View>
-          </Touchable>
-        </View>
+        {
+          !OptionalText.isEmpty(details.phone) &&
+          <View style={styles.info}>
+            <Icon name="md-call" color="#686868" size={30} style={styles.infoIcon} />
+            <Touchable style={styles.infoBody} onPress={() => this.openUrl(`tel://${details.phone}`)}>
+              <View style={styles.infoBody}>
+                <Text style={styles.infoTitle}>Telefone</Text>
+                <Text style={styles.infoValue}>{details.phone}</Text>
+              </View>
+            </Touchable>
+          </View>
+        }
+
+        {
+          !OptionalText.isEmpty(details.phone) &&
+          <View style={styles.info}>
+            <Icon name="md-at" color="#686868" size={30} style={styles.infoIcon} />
+            <Touchable style={styles.infoBody} onPress={() => this.openUrl(details.site)}>
+              <View style={styles.infoBody}>
+                <Text style={styles.infoTitle}>Site</Text>
+                <Text style={styles.infoValue}>{details.site}</Text>
+              </View>
+            </Touchable>
+          </View>
+        }
       </View>
     );
   }

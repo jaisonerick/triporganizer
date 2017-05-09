@@ -90,8 +90,8 @@ android {
         applicationId "com.triporganizer"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 4
-        versionName "1.1.2"
+        versionCode 7
+        versionName "1.1.5"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

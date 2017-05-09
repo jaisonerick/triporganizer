@@ -32,7 +32,7 @@ export default class Flight extends Component {
         <View>
           {
             !OptionalText.isEmpty(details.flight_number) &&
-            <Text style={styles.item}><Text>Voo:</Text> <Text style={styles.strong}>{ details.flight_number }</Text></Text>
+            <Text style={styles.item}><Text>Vôo:</Text> <Text style={styles.strong}>{ details.flight_number }</Text></Text>
           }
 
           {

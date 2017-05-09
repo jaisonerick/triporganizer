@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addNavigationHelpers } from 'react-navigation';
 import AppNavigator from './AppNavigator';
+import LoginApp from 'triporganizer/auth/containers/LoginApp';
 
 const mapStateToProps = (state, props) => ({
   isLoggedIn: state.auth.isLoggedIn,

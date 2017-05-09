@@ -99,6 +99,14 @@ export default class TrainDetails extends Component {
           </View>
         </View>
         {
+          !OptionalText.isEmpty(details.company_phone) &&
+          <View style={styles.confirmation}>
+            <Text style={[styles.detailTitle, styles.confirmationTitle]}>Telefone</Text>
+            <Text style={[styles.detailValue, styles.confirmationValue]}>{details.company_phone}</Text>
+          </View>
+        }
+
+        {
           !OptionalText.isEmpty(details.ticket) &&
           <View style={styles.confirmation}>
             <Text style={[styles.detailTitle, styles.confirmationTitle]}>Ticket</Text>
